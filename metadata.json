@@ -1,0 +1,8 @@
+{
+  "name": "E.D. Harris, Author Website",
+  "description": "The official marketing website for children's book author E.D. Harris, featuring her watercolor picture story 'Judgy Wudgy' for ages 3 to 6.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
