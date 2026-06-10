@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Sparkles, ArrowRight, Award } from "lucide-react";
 import { useScroll, useTransform, motion } from "motion/react";
@@ -15,6 +15,17 @@ import EmailCapture from "../components/EmailCapture";
 export default function Home() {
   const location = useLocation();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Responsive check to disable continuous scroll calculations on mobile touch devices
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Handle cross-page navigation anchor scrolling
   useEffect(() => {
@@ -56,6 +67,7 @@ export default function Home() {
             loop 
             muted 
             playsInline 
+            preload="auto"
             className="absolute inset-0 w-full h-full object-cover z-0"
           />
           {/* Subtle warm vignette overlay on the background video layer */}
@@ -150,7 +162,7 @@ export default function Home() {
             {/* Centered Square Headshot with scroll anim - starts bigger and translates beautifully */}
             <div className="flex flex-col items-center gap-3">
               <motion.div 
-                style={{ scale: avatarScale, rotate: avatarRotate, opacity: avatarOpacity }}
+                style={isMobile ? { scale: 1, rotate: 0, opacity: 1 } : { scale: avatarScale, rotate: avatarRotate, opacity: avatarOpacity }}
                 className="relative w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] md:w-[320px] md:h-[320px] rounded-[48px] overflow-hidden shadow-2xl border-[6px] border-white/80 palette-wash bg-cream transition-shadow duration-300 hover:shadow-3xl"
               >
                 {author.headshot ? (
