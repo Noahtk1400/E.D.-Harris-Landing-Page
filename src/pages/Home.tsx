@@ -42,8 +42,6 @@ export default function Home() {
   const avatarRotate = useTransform(scrollYProgress, [0.05, 0.85], [3, 0]);
   const avatarOpacity = useTransform(scrollYProgress, [0.05, 0.65], [0.65, 1]);
 
-  const IMG = "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?auto=format&fit=crop&q=80&w=1920";
-
   return (
     <div id="home-page" className="relative overflow-hidden w-full">
       {/* SECTION 1: HERO CONTAINER */}
@@ -51,7 +49,7 @@ export default function Home() {
         <div className="blur-overlay blur-overlay-top" />
         <div className="blur-overlay blur-overlay-bottom" />
         
-        <div className="hero-bg" style={{ backgroundImage: `url(${IMG})` }}>
+        <div className="hero-bg bg-[#E6EBE1]">
           <video 
             src="https://res.cloudinary.com/dwjgr2rii/video/upload/q_auto/f_auto/v1781061206/hero_bg_pjjncf.mp4"
             autoPlay 
@@ -74,14 +72,17 @@ export default function Home() {
           {/* Main Visual Layout - Centered matching reference */}
           <div className="flex flex-col items-center gap-4 max-w-4xl mx-auto">
             {/* Pill Header Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-md transform hover:scale-102 transition-transform cursor-default select-none mb-4 animate-fade-in">
+            <Link 
+              to="/books/judgy-wudgy"
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-md transform hover:scale-105 active:scale-95 transition-all cursor-pointer select-none mb-4 animate-fade-in hover:bg-white/15"
+            >
               <span className="bg-white text-near-black text-[9px] uppercase font-black px-2 py-0.5 rounded-full leading-none tracking-widest">
                 New
               </span>
               <span className="font-sans text-[10px] md:text-xs text-white/95 uppercase font-bold tracking-widest leading-none">
                 Introducing Judgy Wudgy Book 1
               </span>
-            </div>
+            </Link>
 
             {/* Giant display serif heading */}
             <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] text-white font-normal tracking-tightest leading-[1.05] drop-shadow-md select-none">
