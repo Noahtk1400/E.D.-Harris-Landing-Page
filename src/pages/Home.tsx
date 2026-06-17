@@ -79,20 +79,20 @@ export default function Home() {
 
         <AnimatedSection 
           id="hero-section" 
-          className="relative w-full h-full flex flex-col items-center justify-center pt-16 pb-12 sm:pb-16 md:pb-20 px-4 max-w-[1100px] mx-auto z-10 text-center"
+          className="relative w-full h-full flex flex-col items-center justify-center pt-24 sm:pt-16 pb-12 sm:pb-16 md:pb-20 px-4 max-w-[1100px] mx-auto z-10 text-center"
         >
           {/* Main Visual Layout - Centered matching reference */}
-          <div className="flex flex-col items-center gap-3.5 max-w-4xl mx-auto -mt-18 sm:-mt-24 md:-mt-28 select-none">
+          <div className="flex flex-col items-center gap-3.5 max-w-4xl mx-auto mt-4 xs:mt-6 sm:-mt-24 md:-mt-28 select-none">
             {/* Pill Header Badge */}
             <Link 
               to="/books/judgy-wudgy"
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-md transform hover:scale-105 active:scale-95 transition-all cursor-pointer select-none mb-1 animate-fade-in hover:bg-white/15"
+              className="relative z-30 pointer-events-auto inline-flex items-center gap-1.5 px-3 py-1 bg-white/15 backdrop-blur-md rounded-full border border-white/20 shadow-md transform hover:scale-105 active:scale-95 transition-all cursor-pointer select-none mb-1 animate-fade-in hover:bg-white/25 whitespace-nowrap"
             >
-              <span className="bg-white text-near-black text-[9px] uppercase font-black px-2 py-0.5 rounded-full leading-none tracking-widest">
+              <span className="bg-white text-near-black text-[9px] uppercase font-black px-2 py-0.5 rounded-full leading-none tracking-widest shrink-0">
                 New
               </span>
-              <span className="font-sans text-[10px] md:text-xs text-white/95 uppercase font-bold tracking-widest leading-none">
-                Introducing Judgy Wudgy Book 1
+              <span className="font-sans text-[9px] xs:text-[10px] md:text-xs text-white/95 uppercase font-bold tracking-widest leading-none shrink-0 whitespace-nowrap">
+                Introducing Judgy Wudgy Series Book 1
               </span>
             </Link>
 
@@ -107,9 +107,12 @@ export default function Home() {
             </p>
 
             {/* Center Story/Couplet Quote Card */}
-            <div className="mt-3.5 mx-auto inline-flex items-center justify-center bg-white text-near-black font-sans text-xs sm:text-sm font-extrabold tracking-wider rounded-full px-8 py-3.5 shadow-md select-none hover:bg-[#FFFBF4] transition-all duration-300">
+            <Link 
+              to="/books/judgy-wudgy"
+              className="mt-3.5 mx-auto inline-flex items-center justify-center bg-white hover:bg-[#FFFBF4] text-near-black font-sans text-xs sm:text-sm font-extrabold tracking-wider rounded-full px-8 py-3.5 shadow-md relative z-30 pointer-events-auto cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300 hover:shadow-lg"
+            >
               New Introducing Judgy Wudgy Series Book 1
-            </div>
+            </Link>
 
             {/* Action buttons side-by-side centered */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full mt-22 sm:mt-26 md:mt-28 scale-95 sm:scale-100">

@@ -75,7 +75,7 @@ export default function TestimonialsSection({ variant = "full" }: TestimonialsSe
 
               <div className="relative mb-6">
                 <span className="absolute -top-4 -left-2 text-4xl font-serif text-rose-pink/20 select-none leading-none">&ldquo;</span>
-                <p className="font-serif text-base italic text-near-black/95 leading-relaxed relative z-10 font-medium pl-2.5">
+                <p className="font-serif text-base italic text-near-black/95 leading-relaxed relative z-10 font-normal pl-2.5">
                   {publicationReview.quote}
                 </p>
               </div>
@@ -110,7 +110,7 @@ export default function TestimonialsSection({ variant = "full" }: TestimonialsSe
 
               <div className="relative mb-6">
                 <span className="absolute -top-4 -left-2 text-4xl font-serif text-rose-pink/20 select-none leading-none">&ldquo;</span>
-                <p className="font-serif text-base italic text-near-black/95 leading-relaxed relative z-10 font-medium pl-2.5">
+                <p className="font-serif text-base italic text-near-black/95 leading-relaxed relative z-10 font-normal pl-2.5">
                   {peerReview.quote}
                 </p>
               </div>
@@ -149,8 +149,8 @@ export default function TestimonialsSection({ variant = "full" }: TestimonialsSe
               <h3 className="font-serif text-2xl text-burgundy font-normal tracking-tight mb-2">
                 Educator Endorsement
               </h3>
-              <p className="font-sans text-[11px] text-near-black/70 leading-relaxed font-medium">
-                Early childhood literature verified in action. Read how class circles engage and learn.
+              <p className="font-sans text-[11px] text-near-black/70 leading-relaxed font-normal">
+                Read how class circles engage and learn.
               </p>
             </div>
 
@@ -170,7 +170,7 @@ export default function TestimonialsSection({ variant = "full" }: TestimonialsSe
               <div className="flex items-center justify-between mb-4">
                 <Quote className="h-5 w-5 text-rose-pink/40" />
                 <span className="font-mono text-[9px] text-[#805533] font-black bg-[#e9ddc3]/60 px-2.5 py-0.5 rounded-full select-none shadow-sm">
-                  Experience {internalIdx + 1} of {quotes.length}
+                  {internalIdx + 1} of {quotes.length}
                 </span>
               </div>
 
@@ -182,7 +182,7 @@ export default function TestimonialsSection({ variant = "full" }: TestimonialsSe
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -12 }}
                     transition={{ duration: 0.2 }}
-                    className="font-serif text-sm sm:text-base italic text-near-black/90 leading-relaxed font-semibold"
+                    className="font-serif text-sm sm:text-base italic text-near-black/90 leading-relaxed font-normal"
                   >
                     &ldquo;{quotes[internalIdx]}&rdquo;
                   </motion.p>
