@@ -197,8 +197,35 @@ export default function BookPage() {
       <TestimonialsSection variant="legacy" />
     </div>
 
-      {/* SECTION 3: MICRO-CREATOR VIDEO CARDS - Outside background, on solid cream */}
-      {/* <VideoCarousel /> */}
+      {/* SECTION 3: BOOK PREVIEW VIDEO - Elegant, subtle centered Youtube player */}
+      <AnimatedSection id="book-preview-video" className="py-12 md:py-16 px-4 max-w-[840px] mx-auto relative z-10">
+        <div className="bg-white/60 backdrop-blur-md border border-burgundy/10 rounded-[32px] p-6 sm:p-8 md:p-10 shadow-sm flex flex-col items-center text-center">
+          <span className="font-sans text-[10px] uppercase tracking-widest font-extrabold text-gold leading-none block mb-2.5">
+            Book Read-Along & Preview
+          </span>
+          <h2 className="font-serif text-2xl sm:text-3xl text-burgundy tracking-tight mb-4">
+            Experience the Story of Judgy Wudgy
+          </h2>
+          <div className="h-[2px] w-12 bg-[#e9ddc3] mb-6 rounded-full" />
+          
+          <div className="w-full aspect-video rounded-2xl overflow-hidden shadow-lg border-[3px] border-[#e9ddc3] bg-near-black">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/_nS7FPXZ-as?rel=0"
+              title="Judgy Wudgy Was a Bear Book Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
+          <p className="font-sans text-xs text-near-black/60 italic mt-5 max-w-md leading-relaxed font-semibold">
+            Watch a charming visual showcase of our grumpy little bear and his colorful woodland friends.
+          </p>
+        </div>
+      </AnimatedSection>
 
       {/* SECTION 4: EMAIL CAPTURE */}
       <EmailCapture />
