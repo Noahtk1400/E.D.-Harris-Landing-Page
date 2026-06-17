@@ -79,14 +79,14 @@ export default function Home() {
 
         <AnimatedSection 
           id="hero-section" 
-          className="relative w-full h-full flex flex-col items-center justify-center pt-28 pb-20 md:pb-32 px-4 max-w-[1100px] mx-auto z-10 text-center"
+          className="relative w-full h-full flex flex-col items-center justify-center pt-16 pb-12 sm:pb-16 md:pb-20 px-4 max-w-[1100px] mx-auto z-10 text-center"
         >
           {/* Main Visual Layout - Centered matching reference */}
-          <div className="flex flex-col items-center gap-4 max-w-4xl mx-auto">
+          <div className="flex flex-col items-center gap-3.5 max-w-4xl mx-auto -mt-18 sm:-mt-24 md:-mt-28 select-none">
             {/* Pill Header Badge */}
             <Link 
               to="/books/judgy-wudgy"
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-md transform hover:scale-105 active:scale-95 transition-all cursor-pointer select-none mb-4 animate-fade-in hover:bg-white/15"
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-md transform hover:scale-105 active:scale-95 transition-all cursor-pointer select-none mb-1 animate-fade-in hover:bg-white/15"
             >
               <span className="bg-white text-near-black text-[9px] uppercase font-black px-2 py-0.5 rounded-full leading-none tracking-widest">
                 New
@@ -98,23 +98,21 @@ export default function Home() {
 
             {/* Giant display serif heading */}
             <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] text-white font-normal tracking-tightest leading-[1.05] drop-shadow-md select-none">
-              Stories that <span className="font-medium italic text-[#FFFBF4] drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">excite</span>.
+              Stories that <span className="font-medium italic text-[#FFFBF4] drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]">inspire</span>.
             </h1>
 
             {/* Elegant subline copy */}
-            <p className="font-sans text-sm sm:text-base md:text-lg text-white/95 font-medium leading-relaxed max-w-2xl mx-auto mt-4 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] select-none">
+            <p className="font-sans text-sm sm:text-base md:text-lg text-white/95 font-medium leading-relaxed max-w-2xl mx-auto mt-2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] select-none">
               {hero.subline}
             </p>
 
             {/* Center Story/Couplet Quote Card */}
-            <div className="mt-4 mx-auto max-w-lg bg-white/5 backdrop-blur-xs border border-white/15 px-6 py-3 rounded-2xl shadow-sm">
-              <p className="font-serif text-base sm:text-lg italic text-white/95 leading-relaxed tracking-normal">
-                &ldquo;{book.hookCouplet}&rdquo;
-              </p>
+            <div className="mt-3.5 mx-auto inline-flex items-center justify-center bg-white text-near-black font-sans text-xs sm:text-sm font-extrabold tracking-wider rounded-full px-8 py-3.5 shadow-md select-none hover:bg-[#FFFBF4] transition-all duration-300">
+              New Introducing Judgy Wudgy Series Book 1
             </div>
 
             {/* Action buttons side-by-side centered */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full mt-6 scale-95 sm:scale-100">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full mt-22 sm:mt-26 md:mt-28 scale-95 sm:scale-100">
               <a
                 href="https://store.bookbaby.com/book/judgy-wudgy-was-a-bear1"
                 target="_blank"
@@ -136,15 +134,17 @@ export default function Home() {
           </div>
 
           {/* Elegant footer tags floating at the bottom as requested */}
-          <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 left-0 right-0 w-full text-center z-20 px-4 hidden sm:block">
-            <div className="flex justify-center items-center gap-6 md:gap-10 text-white font-serif text-lg md:text-xl font-semibold tracking-normal select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+          <div className="absolute bottom-12 sm:bottom-16 md:bottom-20 left-0 right-0 w-full text-center z-20 px-4 hidden sm:block">
+            <div className="flex flex-wrap justify-center items-center gap-x-4 md:gap-x-6 gap-y-1.5 text-white font-serif text-lg md:text-xl font-semibold tracking-normal select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] max-w-4xl mx-auto">
+              <span className="opacity-95 hover:opacity-100 transition-opacity">Kindness</span>
+              <span className="text-white/40 font-sans text-xs">•</span>
               <span className="opacity-95 hover:opacity-100 transition-opacity">Empathy</span>
               <span className="text-white/40 font-sans text-xs">•</span>
-              <span className="opacity-95 hover:opacity-100 transition-opacity">Kindness</span>
+              <span className="opacity-95 hover:opacity-100 transition-opacity">Compassion</span>
               <span className="text-white/40 font-sans text-xs">•</span>
               <span className="opacity-95 hover:opacity-100 transition-opacity">Self-Awareness</span>
               <span className="text-white/40 font-sans text-xs">•</span>
-              <span className="opacity-95 hover:opacity-100 transition-opacity">Belonging</span>
+              <span className="opacity-95 hover:opacity-100 transition-opacity">Developing Healthy Friendships</span>
               <span className="text-white/40 font-sans text-xs">•</span>
               <span className="opacity-95 hover:opacity-100 transition-opacity">Resilience</span>
             </div>
@@ -156,7 +156,7 @@ export default function Home() {
         id="about-author-section" 
         className="w-full py-16 px-4 max-w-[1000px] mx-auto z-20 relative mt-0"
       >
-        <div className="liquid-glass rounded-[40px] p-8 md:p-12 transition-all" ref={containerRef}>
+        <div className="liquid-glass rounded-[40px] p-8 md:p-12 transition-all bg-[#e9ddc3]!" style={{ backgroundColor: "#e9ddc3" }} ref={containerRef}>
           <div className="flex flex-col gap-8 items-center max-w-3xl mx-auto">
             
             {/* Centered Square Headshot with scroll anim - starts bigger and translates beautifully */}
@@ -191,10 +191,10 @@ export default function Home() {
 
             {/* Biography text block */}
             <div className="flex flex-col items-center text-center gap-4 mt-4">
-              <span className="font-sans text-[10px] uppercase tracking-widest font-bold text-gold">
+              <span className="font-sans text-[10px] uppercase tracking-widest font-bold text-[#805533]">
                 The heart behind the stories
               </span>
-              <h2 className="font-serif text-4xl md:text-5xl text-burgundy tracking-tight">
+              <h2 className="font-playfair text-4xl md:text-5xl text-burgundy font-black tracking-tight">
                 About E.D. Harris
               </h2>
 
@@ -204,12 +204,6 @@ export default function Home() {
                     {para}
                   </p>
                 ))}
-              </div>
-
-              {/* Discussion highlight label */}
-              <div className="mt-4 text-[10px] font-sans font-bold text-burgundy bg-rose-pink/5 hover:bg-rose-pink/10 transition-colors px-3 py-1.5 rounded-full border border-rose-pink/10 flex items-center gap-1.5 cursor-default select-none">
-                <div className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-                NYC Board of Ed Literature Backed Framework
               </div>
             </div>
 

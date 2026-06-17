@@ -41,7 +41,7 @@ export default function ContactPage() {
             <Mail className="h-5 w-5" />
           </div>
 
-          <span className="font-sans text-[10px] uppercase tracking-widest font-bold text-gold">
+          <span className="font-sans text-[10px] uppercase tracking-widest font-bold text-rose-pink">
             Connecting with readers
           </span>
           
@@ -79,7 +79,7 @@ export default function ContactPage() {
 
           {/* Social Platforms connectors */}
           <div className="flex flex-col gap-3 w-full max-w-xs">
-            <span className="font-sans text-[10px] uppercase tracking-widest font-bold text-gold mb-1">
+            <span className="font-sans text-[10px] uppercase tracking-widest font-bold text-rose-pink mb-1">
               Join us on our journey
             </span>
             
@@ -95,11 +95,18 @@ export default function ContactPage() {
                   {getSocialIcon(soc.platform)}
                   <span>{soc.platform}</span>
                 </div>
-                <span className="text-[10px] text-[#BD955C] font-semibold tracking-wider font-sans group">
+                <span className="text-[10px] text-rose-pink font-bold tracking-wider font-sans group">
                   @edharrisbooks
                 </span>
               </a>
             ))}
+          </div>
+
+          {/* Core bottom brand moniker in a modern treatment */}
+          <div className="mt-10 pt-6 border-t border-burgundy/10 w-full flex justify-center">
+            <span className="font-sans text-[10px] sm:text-[11px] uppercase tracking-[0.25em] font-black text-rose-pink">
+              @EVDHARRISBOOKS.COM
+            </span>
           </div>
 
         </div>

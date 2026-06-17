@@ -10,8 +10,8 @@ export const siteMeta = {
 };
 
 export const hero = {
-  heading: "Stories that excite.",
-  subline: "Social-emotional learning woven into worlds children love to visit again and again."
+  heading: "Stories that inspire.",
+  subline: "Social-Emotional Learning (SEL) woven into worlds children love to visit again and again."
 };
 
 export const buyLinks = {
@@ -28,9 +28,9 @@ export const author = {
   // Comment: Real high-resolution headshot image path goes here when available, e.g. "/author_headshot.jpg"
   headshot: "https://res.cloudinary.com/dwjgr2rii/image/upload/q_auto/f_auto/v1781054859/5C5037ED-00F7-442E-A269-2D64179D3662_copy_jmqaaw.jpg",
   bioParagraphs: [
-    "E.D. Harris is based in Westchester County, NY and is a former NYC Department of Education English Literature and ESL teacher. She holds a B.A. in English with a minor in Spanish, an M.A. in Education, an M.F.A. in Early Childhood Literacy, and studied at the Writing Institute at Sarah Lawrence College.",
-    "A mother, wife, and author with a passion for creating meaningful stories rooted in Social-Emotional Learning, exploring the beauty, complexity, and emotion of the human experience.",
-    "E.D. Harris launched E.D. Harris Books to create meaningful fiction stories inspired by real social and emotional experiences. Her work is inspired and co-authored with her son, David M. Harris."
+    "E.D. Harris is based in Westchester County, NY and is a former NYC Department of Education English Literature and ESL teacher. She holds a B.A. in English with a minor in Spanish, M.A. in Teaching ESL (English as a Second Language), an M.A. in Teaching Early Childhood Literacy, and studied at The Writing Institute at Sarah Lawrence College.",
+    "A mother, wife, and author with a passion for creating memorable stories rooted in Social-Emotional Learning, exploring the beauty, complexity, and emotion of the human experience.",
+    "E.D. Harris launched E.D. Harris Books to create meaningful fiction stories inspired by real social and emotional experiences. The story-concept and thematic development co-authored by her son David M. Harris."
   ]
 };
 
@@ -53,60 +53,46 @@ export const book = {
   metaLine: "Written and illustrated by E.D. Harris. For children ages 3 to 6. Includes a discussion guide for parents and teachers. Supports Social-Emotional Learning. First book in the Judgy Wudgy series."
 };
 
-// Comment: Add customer or editorial reviews to this array as { quote: string; name: string; role: string }
-export const testimonials: { quote: string; name: string; role: string }[] = [
+// Comment: Add customer or editorial reviews to this array as { quote: string | string[]; name: string; role: string }
+export const testimonials: { quote: string | string[]; name: string; role: string }[] = [
   {
-    quote: "A charming, beautifully paced story that gently nudges children toward empathy and self-awareness. E.D. Harris has written a classic for classrooms and bedtime alike.",
-    name: "Sarah Jenkins",
-    role: "Early Childhood Educator"
+    quote: [
+      "I enjoyed our circle reading time with Judgy Wudgy was a Bear with my class, and I would recommend it for all preschool and kindergarten students. The children agreed that kindness feels good.",
+      "The discussion guide sparked great conversation, with students eager to share their thoughts and experiences.",
+      "The children in my kindergarten class felt for Judgy Wudgy as he learned to be kinder. They were happy to see the other characters give him a second chance."
+    ],
+    name: "Ms Seton",
+    role: "Kindergarten Teacher, Lower Westchester, NY"
   },
   {
-    quote: "Judgy Wudgy makes complex social-emotional themes incredibly approachable and deeply memorable. Highly recommended for emotional awareness development.",
-    name: "Dr. Marcus Vance",
-    role: "Pediatric Psychologist & SEL Advisor"
+    quote: "A big-hearted story, wonderful for opening up little minds to the possibility of behavior change. With a grumpy bear who needs an attitude adjustment and a cast of adorable forest animals who show him the way, Judgy Wudgy is an engaging story that should be a part of every parent and educator’s toolkit.",
+    name: "Jacqueline Friedland",
+    role: "USA Today bestselling author of Breathing Under Water"
   },
   {
-    quote: "Captivating watercolor scenes and rhythmic verses that teach the weight of sharp opinions, introducing gentle peer amends in a warm, welcoming way.",
-    name: "Dr. Amanda Ross",
-    role: "Child Development Expert & Parent"
+    quote: "As a parent, I really appreciated how Judgy Wudgy Was a Bear tackles an important topic in a way young children can understand. It's warm, thoughtful, and opens the door to meaningful conversations about empathy, friendship, and accepting others.",
+    name: "Faith Dallal",
+    role: "Freelance writer, Substack publisher, mother"
   }
 ];
 
 // Comment: Add other authors' testimonials about E.D. Harris as | { quote: string; authorName: string; role: string; affiliation: string }
 export const authorTestimonials: { quote: string; authorName: string; role: string; affiliation: string }[] = [
   {
-    quote: "E.D. Harris writes with a rare emotional intelligence. Her understanding of early childhood literature provides parents and fellow writers with a masterclass in compassionate storytelling.",
-    authorName: "Margaret Carlyle",
-    role: "Award-winning Author of 'The Forest Within'",
-    affiliation: "Children's Book Guild"
-  },
-  {
-    quote: "Harris has a unique ability to bridge the gap between classroom pedagogy and natural bedtime reading. Her characters show children how to navigate emotional conflicts with dignity.",
-    authorName: "Julianne Vane",
-    role: "Educator & Child Literacy Advocate",
-    affiliation: "Westchester Literary Guild"
+    quote: "A big-hearted story, wonderful for opening up little minds to the possibility of behavior change. With a grumpy bear who needs an attitude adjustment and a cast of adorable forest animals who show him the way, Judgy Wudgy is an engaging story that should be a part of every parent and educator’s toolkit.",
+    authorName: "Jacqueline Friedland",
+    role: "USA Today bestselling author of Breathing Under Water",
+    affiliation: "Bestselling Novelist"
   }
 ];
 
 // Comment: Add publication features/clippings for the author as | { publication: string; quote: string; issue: string; rating: string }
 export const publicationMentions: { publication: string; quote: string; issue: string; rating: string }[] = [
   {
-    publication: "Westchester Family Column",
-    quote: "A refreshing voice in local contemporary literature—E.D. Harris crafts prose that captures childhood innocence while instilling vital emotional foundations.",
-    issue: "Spring Literary Review",
-    rating: "Featured Profile"
-  },
-  {
-    publication: "Sarah Lawrence Showcase",
-    quote: "Demonstrates an exceptional mastery of rhythmic pacing. Harris's narratives possess the timeless rhythm of classic picture books with a modern SEL lens.",
-    issue: "Alumni Spotlight",
-    rating: "Critical Acclaim"
-  },
-  {
-    publication: "New York Teacher's Forum",
-    quote: "By aligning beautifully crafted storytelling with foundational school-literacy goals, Harris is establishing herself as a cornerstone author for primary classrooms.",
-    issue: "Early Childhood Spotlight",
-    rating: "★ ★ ★ ★ ★"
+    publication: "Faith Dallal",
+    quote: "As a parent, I really appreciated how Judgy Wudgy Was a Bear tackles an important topic in a way young children can understand. It's warm, thoughtful, and opens the door to meaningful conversations about empathy, friendship, and accepting others.",
+    issue: "Parent Feature",
+    rating: "Substack Publisher & Freelance Writer"
   }
 ];
 
@@ -125,7 +111,14 @@ export const nav = {
     { label: "Books", path: "/books/judgy-wudgy" },
     { label: "Contact", path: "/contact" }
   ],
-  booksDropdown: [
-    { title: "Judgy Wudgy", path: "/books/judgy-wudgy" }
-  ]
+  booksDropdown: {
+    available: [
+      { title: "Judgy Wudgy was a Bear", subtitle: "Book 1 (Available Now)", path: "/books/judgy-wudgy" }
+    ],
+    comingSoon: [
+      { title: "Judgy Wudgy was a Bear is Compassionate", release: "Coming Fall '2026" },
+      { title: "Judgy Wudgy was a Bear has Empathy", release: "Coming Winter '2027" },
+      { title: "Home is Perfect", release: "Release TBA" }
+    ]
+  }
 };

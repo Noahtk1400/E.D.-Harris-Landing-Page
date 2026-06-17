@@ -9,7 +9,7 @@ import { useScroll, useTransform, motion } from "motion/react";
 import { book, buyLinks } from "../content";
 import AnimatedSection from "../components/AnimatedSection";
 import TestimonialsSection from "../components/TestimonialsSection";
-import VideoCarousel from "../components/VideoCarousel";
+// import VideoCarousel from "../components/VideoCarousel";
 import EmailCapture from "../components/EmailCapture";
 
 export default function BookPage() {
@@ -198,7 +198,7 @@ export default function BookPage() {
     </div>
 
       {/* SECTION 3: MICRO-CREATOR VIDEO CARDS - Outside background, on solid cream */}
-      <VideoCarousel />
+      {/* <VideoCarousel /> */}
 
       {/* SECTION 4: EMAIL CAPTURE */}
       <EmailCapture />

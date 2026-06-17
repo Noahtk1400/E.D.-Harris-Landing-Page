@@ -100,18 +100,50 @@ export default function Navbar() {
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95, y: -4 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-48 z-50 pointer-events-auto"
+                      className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-80 z-50 pointer-events-auto"
                     >
-                      <div className="bg-[#E6EBE1]/98 backdrop-blur-md border border-burgundy/15 shadow-xl rounded-xl py-2 overflow-hidden">
-                        {nav.booksDropdown.map((bookItem, idx) => (
+                      <div className="bg-[#FFFBF4]/98 backdrop-blur-md border border-burgundy/15 shadow-xl rounded-2xl py-3 overflow-hidden text-left">
+                        {/* Available Now Section */}
+                        <div className="px-4 py-1.5 flex items-center justify-between">
+                          <span className="block font-sans text-[9px] uppercase tracking-widest font-black text-rose-pink">
+                            Available Now
+                          </span>
+                        </div>
+                        {nav.booksDropdown.available.map((bookItem, idx) => (
                           <Link
                             key={idx}
                             to={bookItem.path}
-                            className="block px-4 py-2 text-[11px] text-burgundy/80 hover:text-burgundy hover:bg-white/40 transition-all rounded-md mx-1 font-semibold"
+                            className="block px-4 py-2.5 text-[11px] text-burgundy hover:text-rose-pink hover:bg-burgundy/5 transition-all rounded-xl mx-2 font-bold"
                           >
-                            {bookItem.title}
+                            <span className="block">{bookItem.title}</span>
+                            <span className="block text-[9px] text-[#805533] font-semibold mt-0.5">{bookItem.subtitle}</span>
                           </Link>
                         ))}
+
+                        {/* Divider */}
+                        <div className="h-[1px] bg-burgundy/10 my-2 mx-3" />
+
+                        {/* Coming Soon Section */}
+                        <div className="px-4 py-1.5">
+                          <span className="block font-sans text-[9px] uppercase tracking-widest font-black text-gold">
+                            Coming Soon
+                          </span>
+                        </div>
+                        <div className="flex flex-col gap-1 px-4 pb-2">
+                          {nav.booksDropdown.comingSoon.map((bookItem, idx) => (
+                            <div
+                              key={idx}
+                              className="py-2.5 px-3 bg-burgundy/[0.02] border border-burgundy/5 rounded-xl text-near-black/60 cursor-default"
+                            >
+                              <span className="block font-sans text-[11px] font-bold text-near-black/85 leading-tight">
+                                {bookItem.title}
+                              </span>
+                              <span className="inline-block text-[9px] text-rose-pink font-bold uppercase tracking-wider mt-1 bg-rose-pink/5 px-2 py-0.5 rounded-full">
+                                {bookItem.release}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </motion.div>
                   )}
@@ -178,17 +210,43 @@ export default function Navbar() {
 
                 {/* Mobile Books Section Expanded */}
                 <div className="py-2 px-3 border-t border-b border-burgundy/5 my-1">
-                  <span className="text-burgundy font-bold text-[9px] tracking-widest block mb-1 opacity-60">Books</span>
-                  <div className="pl-3 flex flex-col gap-1.5 border-l border-burgundy/10">
-                    {nav.booksDropdown.map((bookItem, idx) => (
-                      <Link
-                        key={idx}
-                        to={bookItem.path}
-                        className="text-burgundy/80 hover:text-burgundy block py-1 font-semibold transition-all hover:translate-x-0.5"
-                      >
-                        {bookItem.title}
-                      </Link>
-                    ))}
+                  <span className="text-burgundy font-bold text-[9px] tracking-widest block mb-2 opacity-60">Books</span>
+                  
+                  {/* Available Now - Mobile */}
+                  <div className="pl-3 mb-3">
+                    <span className="text-rose-pink font-black text-[8px] tracking-wider block mb-1.5 uppercase">Available Now</span>
+                    <div className="flex flex-col gap-1 pr-1">
+                      {nav.booksDropdown.available.map((bookItem, idx) => (
+                        <Link
+                          key={idx}
+                          to={bookItem.path}
+                          className="bg-burgundy/5 hover:bg-burgundy/10 text-burgundy block p-2 rounded-xl text-xs font-bold transition-all text-left"
+                        >
+                          <span className="block">{bookItem.title}</span>
+                          <span className="block text-[9px] text-[#805533]/80 font-semibold mt-0.5">{bookItem.subtitle}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Coming Soon - Mobile */}
+                  <div className="pl-3">
+                    <span className="text-gold font-black text-[8px] tracking-wider block mb-1.5 uppercase">Coming Soon</span>
+                    <div className="flex flex-col gap-2.5 pr-1 text-left">
+                      {nav.booksDropdown.comingSoon.map((bookItem, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-burgundy/[0.01] border border-burgundy/5 p-2 px-2.5 rounded-xl text-near-black/60"
+                        >
+                          <span className="block font-sans text-xs font-bold text-near-black/85 leading-tight">
+                            {bookItem.title}
+                          </span>
+                          <span className="inline-block text-[8px] text-rose-pink font-bold uppercase tracking-widest mt-1 bg-rose-pink/5 px-1.5 py-0.5 rounded-full">
+                            {bookItem.release}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 

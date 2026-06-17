@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Newspaper, MessageSquare, PenTool, Award, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Newspaper, Award, Star, Quote } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { testimonials, authorTestimonials, publicationMentions } from "../content";
 import AnimatedSection from "./AnimatedSection";
@@ -15,454 +15,218 @@ interface TestimonialsSectionProps {
 }
 
 export default function TestimonialsSection({ variant = "full" }: TestimonialsSectionProps) {
-  const [activeTab, setActiveTab] = useState<"press-and-peers" | "readers">(
-    variant === "legacy" ? "readers" : "press-and-peers"
-  );
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [pubIndex, setPubIndex] = useState(0);
-  const [peerIndex, setPeerIndex] = useState(0);
+  // Ms Seton is our multi-quote Classroom Spotlight review
+  const classroomReview = testimonials[0];
+  const quotes = Array.isArray(classroomReview?.quote) 
+    ? (classroomReview.quote as string[]) 
+    : [classroomReview?.quote as string];
+  
+  const [internalIdx, setInternalIdx] = useState(0);
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  const prevQuote = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setInternalIdx((prev) => (prev === 0 ? quotes.length - 1 : prev - 1));
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+  const nextQuote = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setInternalIdx((prev) => (prev === quotes.length - 1 ? 0 : prev + 1));
   };
 
-  const handlePubPrev = () => {
-    setPubIndex((prev) => (prev === 0 ? publicationMentions.length - 1 : prev - 1));
-  };
-
-  const handlePubNext = () => {
-    setPubIndex((prev) => (prev === publicationMentions.length - 1 ? 0 : prev + 1));
-  };
-
-  const handlePeerPrev = () => {
-    setPeerIndex((prev) => (prev === 0 ? authorTestimonials.length - 1 : prev - 1));
-  };
-
-  const handlePeerNext = () => {
-    setPeerIndex((prev) => (prev === authorTestimonials.length - 1 ? 0 : prev + 1));
-  };
+  // The peer review testimonial (Jacqueline Friedland)
+  const peerReview = authorTestimonials[0];
+  // The publication mention review (Faith Dallal)
+  const publicationReview = publicationMentions[0];
 
   return (
     <AnimatedSection 
       id="testimonials-section" 
-      className="w-full py-20 px-4 max-w-[1100px] mx-auto relative z-10 scroll-mt-24"
+      className="w-full py-16 md:py-24 px-4 max-w-[1100px] mx-auto relative z-10 scroll-mt-24 select-none animate-fade-in"
     >
       {/* SECTION HEADER */}
-      <div className="text-center mb-10 max-w-2xl mx-auto px-4">
-        <span className="font-sans text-[10px] uppercase tracking-widest font-extrabold text-gold leading-none block mb-2">
+      <div className="text-center mb-12 sm:mb-16 max-w-2xl mx-auto px-4">
+        <span className="font-sans text-[10px] uppercase tracking-widest font-extrabold text-gold leading-none block mb-2.5">
           {variant === "legacy" ? "TESTIMONIALS & REVIEWS" : "LITERARY RECOGNITION & COMMENDATIONS"}
         </span>
-        <h2 className="font-serif text-4xl md:text-5xl text-burgundy tracking-tight">
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-burgundy tracking-tight">
           {variant === "legacy" ? "What Readers Are Saying" : "Praise & Publications"}
         </h2>
-        {variant !== "legacy" && (
-          <p className="font-sans text-xs text-near-black/75 mt-3 leading-relaxed font-semibold">
-            Explore editorial review features, local spotlights, and professional commendations from fellow writers.
-          </p>
-        )}
+        <div className="h-[2px] w-12 bg-[#e9ddc3] mx-auto mt-4 rounded-full" />
       </div>
 
-      {/* LUXURIOUS SYSTEM TOGGLE pill selector */}
-      {variant !== "legacy" && (
-        <div className="flex justify-center items-center gap-2 mb-12 max-w-sm sm:max-w-md mx-auto p-1 bg-[#E6EBE1]/45 rounded-full border border-burgundy/10 select-none">
-          <button
-            onClick={() => {
-              setActiveTab("press-and-peers");
-              setCurrentIndex(0);
-            }}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-full text-xs font-bold transition-all duration-300 ${
-              activeTab === "press-and-peers"
-                ? "bg-burgundy text-white shadow"
-                : "text-burgundy/80 hover:text-burgundy hover:bg-burgundy/5"
-            }`}
-            aria-label="Toggle press and educational peer circle reviews"
-          >
-            <Newspaper className="h-3.5 w-3.5" />
-            <span>Publications & Peers</span>
-          </button>
-          <button
-            onClick={() => {
-              setActiveTab("readers");
-              setCurrentIndex(0);
-            }}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-full text-xs font-bold transition-all duration-300 ${
-              activeTab === "readers"
-                ? "bg-burgundy text-white shadow"
-                : "text-burgundy/80 hover:text-burgundy hover:bg-burgundy/5"
-            }`}
-            aria-label="Toggle reader community testimonials"
-          >
-            <MessageSquare className="h-3.5 w-3.5" />
-            <span>Reader Community</span>
-          </button>
+      {/* CORE GRID LAYOUT */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-10">
+        
+        {/* 1. EDITORIAL CLIPPINGS / IN THE PUBLICATIONS */}
+        {publicationReview && (
+          <div className="bg-white/70 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-burgundy/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
+            {/* Top gold accent line */}
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gold opacity-80" />
+            
+            <div>
+              <div className="flex items-center gap-2 mb-5">
+                <div className="p-1.5 bg-[#e9ddc3]/30 rounded-lg text-gold">
+                  <Newspaper className="h-4 w-4" />
+                </div>
+                <span className="font-sans text-[10px] font-black uppercase tracking-wider text-burgundy">
+                  In The Publications
+                </span>
+              </div>
+
+              <div className="relative mb-6">
+                <span className="absolute -top-4 -left-2 text-4xl font-serif text-rose-pink/20 select-none leading-none">&ldquo;</span>
+                <p className="font-serif text-base italic text-near-black/95 leading-relaxed relative z-10 font-medium pl-2.5">
+                  {publicationReview.quote}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-auto pt-4 border-t border-burgundy/5 flex flex-col gap-1">
+              <span className="font-sans text-xs font-extrabold text-burgundy tracking-wider uppercase">
+                {publicationReview.publication}
+              </span>
+              <span className="font-sans text-[10px] text-gold font-bold uppercase tracking-widest">
+                {publicationReview.rating}
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* 2. FELLOW AUTHORS & CONTEMPORARIES */}
+        {peerReview && (
+          <div className="bg-white/70 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-burgundy/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
+            {/* Top burgundy accent line */}
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-burgundy opacity-80" />
+            
+            <div>
+              <div className="flex items-center gap-2 mb-5">
+                <div className="p-1.5 bg-[#e9ddc3]/30 rounded-lg text-burgundy">
+                  <Award className="h-4 w-4" />
+                </div>
+                <span className="font-sans text-[10px] font-black uppercase tracking-wider text-burgundy">
+                  Fellow Authors & Contemporaries
+                </span>
+              </div>
+
+              <div className="relative mb-6">
+                <span className="absolute -top-4 -left-2 text-4xl font-serif text-rose-pink/20 select-none leading-none">&ldquo;</span>
+                <p className="font-serif text-base italic text-near-black/95 leading-relaxed relative z-10 font-medium pl-2.5">
+                  {peerReview.quote}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-auto pt-4 border-t border-burgundy/5 flex flex-col gap-1">
+              <span className="font-sans text-xs font-extrabold text-burgundy tracking-wider uppercase">
+                {peerReview.authorName}
+              </span>
+              <span className="font-sans text-[10px] text-gold font-bold uppercase tracking-widest leading-tight">
+                {peerReview.role}
+              </span>
+            </div>
+          </div>
+        )}
+
+      </div>
+
+      {/* 3. CLASSROOM & ADVOCATE SPOTLIGHT (FULL WIDTH FEATURE WITH WARM ACCENT #e9ddc3) */}
+      {classroomReview && (
+        <div className="w-full bg-[#e9ddc3] rounded-3xl p-6 sm:p-8 md:p-10 border border-burgundy/15 shadow-md flex flex-col md:flex-row items-stretch justify-between gap-6 md:gap-10 relative overflow-hidden">
+          {/* Subtle elegant watermarked giant quote in the background */}
+          <div className="absolute right-4 bottom-4 text-[140px] font-serif text-burgundy/5 select-none leading-none pointer-events-none transform translate-y-10 translate-x-4">
+            ”
+          </div>
+          
+          {/* Left info column */}
+          <div className="flex flex-col justify-between md:max-w-[280px] z-10">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/60 mb-4 rounded-full border border-burgundy/5 shadow-sm">
+                <Star className="h-3 w-3 text-gold fill-gold" />
+                <span className="font-sans text-[9px] font-black text-burgundy uppercase tracking-wider">
+                  Classroom Spotlight
+                </span>
+              </div>
+              <h3 className="font-serif text-2xl text-burgundy font-normal tracking-tight mb-2">
+                Educator Endorsement
+              </h3>
+              <p className="font-sans text-[11px] text-near-black/70 leading-relaxed font-medium">
+                Early childhood literature verified in action. Read how class circles engage and learn.
+              </p>
+            </div>
+
+            <div className="mt-6 md:mt-0 pt-4 border-t border-burgundy/10">
+              <span className="block font-sans text-xs font-black uppercase text-burgundy tracking-wider">
+                {classroomReview.name}
+              </span>
+              <span className="block font-sans text-[10px] font-bold text-gold uppercase tracking-widest mt-0.5 leading-tight">
+                {classroomReview.role}
+              </span>
+            </div>
+          </div>
+
+          {/* Right interactive quote column */}
+          <div className="flex-1 flex flex-col justify-between bg-white/75 backdrop-blur-md rounded-2xl p-6 border border-burgundy/10 relative z-10 min-h-[220px]">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <Quote className="h-5 w-5 text-rose-pink/40" />
+                <span className="font-mono text-[9px] text-[#805533] font-black bg-[#e9ddc3]/60 px-2.5 py-0.5 rounded-full select-none shadow-sm">
+                  Experience {internalIdx + 1} of {quotes.length}
+                </span>
+              </div>
+
+              <div className="min-h-[110px] flex items-center">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={internalIdx}
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -12 }}
+                    transition={{ duration: 0.2 }}
+                    className="font-serif text-sm sm:text-base italic text-near-black/90 leading-relaxed font-semibold"
+                  >
+                    &ldquo;{quotes[internalIdx]}&rdquo;
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            <div className="mt-4 pt-4 border-t border-burgundy/5 flex items-center justify-end gap-2">
+              <button
+                onClick={prevQuote}
+                className="p-1.5 border border-burgundy/10 rounded-full bg-white hover:bg-burgundy hover:border-burgundy hover:text-white text-burgundy transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
+                aria-label="Previous quote"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              <button
+                onClick={nextQuote}
+                className="p-1.5 border border-burgundy/10 rounded-full bg-white hover:bg-burgundy hover:border-burgundy hover:text-white text-burgundy transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
+                aria-label="Next quote"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
         </div>
       )}
 
-      <AnimatePresence mode="wait">
-        {activeTab === "press-and-peers" ? (
-          <motion.div
-            key="press-and-peers-panel"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col gap-12"
+      {/* FELLOW AUTHORS / CALL TO ACTION ACCENT PILL */}
+      <div className="mt-10 text-center">
+        <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 px-6 py-3 bg-[#e9ddc3]/30 hover:bg-[#e9ddc3]/55 border border-burgundy/5 rounded-2xl transition-all max-w-xl mx-auto shadow-sm">
+          <span className="font-sans text-[11px] text-near-black/75 font-semibold">
+            Are you a fellow children's author, educator, or reporter?
+          </span>
+          <Link 
+            to="/contact"
+            className="font-sans text-[11px] text-burgundy font-extrabold uppercase tracking-wider hover:text-rose-pink flex items-center gap-1 transition-colors focus-visible:outline-2"
           >
-            {/* 1. EDITORIAL CLIPPINGS ("In the Publications") */}
-            <div>
-              <div className="flex items-center gap-2 mb-6 border-b border-burgundy/10 pb-2">
-                <Newspaper className="h-4 w-4 text-gold shrink-0" />
-                <h3 className="font-serif text-xl md:text-2xl text-burgundy font-normal italic">
-                  In The Publications
-                </h3>
-              </div>
+            Connect with E.D. Harris
+            <span className="text-xs">↗</span>
+          </Link>
+        </div>
+      </div>
 
-              {/* Desktop view of high-fidelity publication cards */}
-              <div className="hidden md:grid grid-cols-3 gap-6">
-                {publicationMentions.map((pub, idx) => (
-                  <div 
-                    key={idx}
-                    className="bg-[#FFFBF4] rounded-2xl p-6 sm:p-7 border border-burgundy/5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between relative overflow-hidden group"
-                  >
-                    {/* Retro line art to denote vintage news clippings */}
-                    <div className="absolute top-0 left-0 w-full h-[3px] bg-gold opacity-60" />
-                    
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="font-sans text-[9px] font-black uppercase tracking-wider text-gold bg-[#E6EBE1]/40 px-2 py-1 rounded">
-                          {pub.issue}
-                        </span>
-                        <span className="font-sans text-[10px] text-near-black/50 font-bold">
-                          {pub.rating}
-                        </span>
-                      </div>
-
-                      <p className="font-serif text-base italic text-near-black/90 leading-relaxed mb-6 font-medium">
-                        &ldquo;{pub.quote}&rdquo;
-                      </p>
-                    </div>
-
-                    <div>
-                      <div className="h-[1px] w-12 bg-burgundy/15 mb-3" />
-                      <span className="font-sans text-xs uppercase tracking-wider font-extrabold text-burgundy block">
-                        {pub.publication}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* MOBILE CAROUSEL FOR PUBLICATIONS */}
-              <div className="block md:hidden w-full max-w-[420px] mx-auto">
-                <div className="relative overflow-hidden min-h-[250px] flex items-stretch">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={pubIndex}
-                      initial={{ opacity: 0, x: 55 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -55 }}
-                      transition={{ duration: 0.3 }}
-                      className="bg-[#FFFBF4] rounded-2xl p-6 border border-burgundy/5 shadow-sm flex flex-col justify-between relative overflow-hidden w-full"
-                    >
-                      <div className="absolute top-0 left-0 w-full h-[3px] bg-gold opacity-60" />
-                      <div>
-                        <div className="flex items-center justify-between mb-4">
-                          <span className="font-sans text-[9px] font-black uppercase tracking-wider text-gold bg-[#E6EBE1]/40 px-2 py-1 rounded">
-                            {publicationMentions[pubIndex].issue}
-                          </span>
-                          <span className="font-sans text-[10px] text-near-black/50 font-bold">
-                            {publicationMentions[pubIndex].rating}
-                          </span>
-                        </div>
-                        <p className="font-serif text-base italic text-near-black/90 leading-relaxed mb-6 font-medium">
-                          &ldquo;{publicationMentions[pubIndex].quote}&rdquo;
-                        </p>
-                      </div>
-                      <div>
-                        <div className="h-[1px] w-12 bg-burgundy/15 mb-3" />
-                        <span className="font-sans text-xs uppercase tracking-wider font-extrabold text-burgundy block">
-                          {publicationMentions[pubIndex].publication}
-                        </span>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-                {/* Carousel Controls */}
-                <div className="flex items-center justify-between mt-4 px-2">
-                  <div className="flex gap-1.5">
-                    {publicationMentions.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setPubIndex(idx)}
-                        className={`h-2 rounded-full transition-all duration-300 ${
-                          idx === pubIndex ? "w-6 bg-burgundy" : "w-2 bg-burgundy/25 hover:bg-burgundy/40"
-                        }`}
-                        aria-label={`Go to publication mention ${idx + 1}`}
-                      />
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={handlePubPrev}
-                      className="p-2 border border-burgundy/15 rounded-full bg-white/50 hover:bg-white text-burgundy transition-all active:scale-95 cursor-pointer"
-                      aria-label="Previous publication"
-                    >
-                      <ChevronLeft className="h-4 w-4" />
-                    </button>
-                    <button
-                      onClick={handlePubNext}
-                      className="p-2 border border-burgundy/15 rounded-full bg-white/50 hover:bg-white text-burgundy transition-all active:scale-95 cursor-pointer"
-                      aria-label="Next publication"
-                    >
-                      <ChevronRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 2. PEER AUTHOR TESTIMONIALS */}
-            <div>
-              <div className="flex items-center gap-2 mb-6 border-b border-burgundy/10 pb-2 mt-4">
-                <PenTool className="h-4 w-4 text-gold shrink-0" />
-                <h3 className="font-serif text-xl md:text-2xl text-burgundy font-normal italic">
-                  Fellow Authors & Contemporaries
-                </h3>
-              </div>
-
-              {/* Desktop view of Dual Column Layout for Peers */}
-              <div className="hidden md:grid grid-cols-2 gap-6 md:gap-8">
-                {authorTestimonials.map((peer, idx) => (
-                  <div 
-                    key={idx}
-                    className="liquid-glass rounded-2xl p-6 sm:p-8 border border-burgundy/10 shadow-sm flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="text-4xl font-serif text-rose-pink/15 leading-none select-none -mb-3">
-                        “
-                      </div>
-                      <p className="font-serif text-lg italic text-near-black/90 leading-relaxed mb-6 font-semibold">
-                        {peer.quote}
-                      </p>
-                    </div>
-
-                    <div>
-                      <div className="h-[1px] w-12 bg-gold/30 mb-3" />
-                      <div className="font-sans text-xs uppercase tracking-wider font-extrabold text-burgundy">
-                        {peer.authorName}
-                      </div>
-                      <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className="font-sans text-[10px] text-near-black/60 font-medium">
-                          {peer.role}
-                        </span>
-                        <span className="text-near-black/30 font-sans text-xs">•</span>
-                        <span className="font-sans text-[10px] text-gold font-bold uppercase tracking-widest font-bold">
-                          {peer.affiliation}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* MOBILE CAROUSEL FOR PEERS */}
-              <div className="block md:hidden w-full max-w-[420px] mx-auto">
-                <div className="relative overflow-hidden min-h-[280px] flex items-stretch">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={peerIndex}
-                      initial={{ opacity: 0, x: 55 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -55 }}
-                      transition={{ duration: 0.3 }}
-                      className="liquid-glass rounded-2xl p-6 border border-burgundy/10 shadow-sm flex flex-col justify-between w-full"
-                    >
-                      <div>
-                        <div className="text-4xl font-serif text-rose-pink/15 leading-none select-none -mb-3">
-                          “
-                        </div>
-                        <p className="font-serif text-base italic text-near-black/90 leading-relaxed mb-6 font-semibold">
-                          {authorTestimonials[peerIndex].quote}
-                        </p>
-                      </div>
-                      <div>
-                        <div className="h-[1px] w-12 bg-gold/30 mb-3" />
-                        <div className="font-sans text-xs uppercase tracking-wider font-extrabold text-burgundy">
-                          {authorTestimonials[peerIndex].authorName}
-                        </div>
-                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1 mt-0.5">
-                          <span className="font-sans text-[10px] text-near-black/60 font-medium leading-tight">
-                            {authorTestimonials[peerIndex].role}
-                          </span>
-                          <span className="hidden sm:inline text-near-black/30 font-sans text-xs">•</span>
-                          <span className="font-sans text-[10px] text-gold font-bold uppercase tracking-widest font-bold leading-none">
-                            {authorTestimonials[peerIndex].affiliation}
-                          </span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-                {/* Carousel Controls */}
-                <div className="flex items-center justify-between mt-4 px-2">
-                  <div className="flex gap-1.5">
-                    {authorTestimonials.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setPeerIndex(idx)}
-                        className={`h-2 rounded-full transition-all duration-300 ${
-                          idx === peerIndex ? "w-6 bg-burgundy" : "w-2 bg-burgundy/25 hover:bg-burgundy/40"
-                        }`}
-                        aria-label={`Go to contemporary testimonial ${idx + 1}`}
-                      />
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={handlePeerPrev}
-                      className="p-2 border border-burgundy/15 rounded-full bg-white/50 hover:bg-white text-burgundy transition-all active:scale-95 cursor-pointer"
-                      aria-label="Previous peer review"
-                    >
-                      <ChevronLeft className="h-4 w-4" />
-                    </button>
-                    <button
-                      onClick={handlePeerNext}
-                      className="p-2 border border-burgundy/15 rounded-full bg-white/50 hover:bg-white text-burgundy transition-all active:scale-95 cursor-pointer"
-                      aria-label="Next peer review"
-                    >
-                      <ChevronRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* FORWARD COMPATIBLE CALL TO ACTION - "Be aware those don't exist yet but they hopefully will exist" */}
-              <div className="mt-8 text-center">
-                <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 px-6 py-3 bg-[#E6EBE1]/30 hover:bg-[#E6EBE1]/50 border border-burgundy/5 rounded-2xl transition-all max-w-xl mx-auto">
-                  <span className="font-sans text-[11px] text-near-black/75 font-semibold">
-                    Are you a fellow children's author, educator, or reporter?
-                  </span>
-                  <Link 
-                    to="/contact"
-                    className="font-sans text-[11px] text-burgundy font-extrabold uppercase tracking-wider hover:text-rose-pink flex items-center gap-1 transition-colors"
-                  >
-                    Connect with E.D. Harris
-                    <span className="text-xs">↗</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="readers-panel"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* DESKTOP REVIEW GRID */}
-            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {testimonials.map((item, index) => (
-                <div 
-                  key={index} 
-                  className="liquid-glass bg-white/75 backdrop-blur-md rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition-all duration-300 border border-burgundy/10 shadow-sm"
-                >
-                  <div className="text-3xl font-serif text-rose-pink/25 leading-none select-none mb-1">
-                    “
-                  </div>
-                  
-                  <p className="font-serif text-base italic text-near-black/95 leading-relaxed mb-6 font-medium">
-                    {item.quote}
-                  </p>
-
-                  <div>
-                    <div className="h-[1px] w-12 bg-gold/30 mb-3" />
-                    <div className="font-sans text-xs uppercase tracking-wider font-bold text-burgundy">
-                      {item.name}
-                    </div>
-                    <div className="font-sans text-[10px] text-gold font-semibold uppercase tracking-widest mt-0.5">
-                      {item.role}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* MOBILE SLIDER FOR READERS */}
-            <div className="block md:hidden w-full max-w-[420px] mx-auto">
-              <div className="relative overflow-hidden min-h-[295px] flex items-stretch">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentIndex}
-                    initial={{ opacity: 0, x: 55 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -55 }}
-                    transition={{ duration: 0.3 }}
-                    className="liquid-glass bg-white/85 backdrop-blur-md rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-burgundy/15 shadow-md w-full"
-                  >
-                    <div>
-                      <div className="text-3xl font-serif text-rose-pink/25 leading-none select-none mb-1">
-                        “
-                      </div>
-                      <p className="font-serif text-base italic text-near-black/95 leading-relaxed mb-6 font-medium">
-                        {testimonials[currentIndex].quote}
-                      </p>
-                    </div>
-
-                    <div>
-                      <div className="h-[1px] w-12 bg-gold/30 mb-3" />
-                      <div className="font-sans text-xs uppercase tracking-wider font-bold text-burgundy">
-                        {testimonials[currentIndex].name}
-                      </div>
-                      <div className="font-sans text-[10px] text-gold font-semibold uppercase tracking-widest mt-0.5">
-                        {testimonials[currentIndex].role}
-                      </div>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* SLIDE ACTIONS */}
-              <div className="flex items-center justify-between mt-6 px-2">
-                <div className="flex gap-1.5">
-                  {testimonials.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentIndex(idx)}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        idx === currentIndex ? "w-6 bg-burgundy" : "w-2 bg-burgundy/25 hover:bg-burgundy/40"
-                      }`}
-                      aria-label={`Go to reader testimonial ${idx + 1}`}
-                    />
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handlePrev}
-                    className="p-2 border border-burgundy/15 rounded-full bg-white/50 hover:bg-white text-burgundy transition-all active:scale-95 cursor-pointer"
-                    aria-label="Previous review"
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    className="p-2 border border-burgundy/15 rounded-full bg-white/50 hover:bg-white text-burgundy transition-all active:scale-95 cursor-pointer"
-                    aria-label="Next review"
-                  >
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </AnimatedSection>
   );
 }

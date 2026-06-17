@@ -6,7 +6,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { MouseEvent } from "react";
 import * as Icons from "lucide-react";
-import { socials, contactEmail } from "../content";
+import { socials, contactEmail, nav } from "../content";
 
 // Helper to resolve string based icon name to Lucide Component
 function SocialIcon({ name, className }: { name: string; className?: string }) {
@@ -96,15 +96,20 @@ export default function Footer() {
                 </h4>
                 <ul className="flex flex-col gap-2 font-sans text-xs text-near-black/75 font-semibold">
                   <li>
-                    <Link to="/books/judgy-wudgy" className="hover:text-burgundy transition-style italic">
-                      Judgy Wudgy
+                    <Link to="/books/judgy-wudgy" className="hover:text-burgundy transition-style italic font-bold">
+                      Judgy Wudgy was a Bear
                     </Link>
                   </li>
-                  <li>
-                    <span className="text-gold/80 italic cursor-default pointer-events-none select-none text-[11px] block">
-                      More coming soon
-                    </span>
-                  </li>
+                  {nav.booksDropdown.comingSoon.map((book, idx) => (
+                    <li key={idx} className="border-t border-burgundy/5 pt-1.5 mt-1">
+                      <span className="text-near-black/55 hover:text-burgundy italic text-[11px] block leading-tight font-medium">
+                        {book.title}
+                      </span>
+                      <span className="text-[9px] uppercase tracking-wider text-rose-pink font-bold block mt-0.5">
+                        {book.release}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
