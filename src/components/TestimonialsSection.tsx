@@ -48,7 +48,7 @@ export default function TestimonialsSection({ variant = "full" }: TestimonialsSe
         <span className="font-sans text-[10px] uppercase tracking-widest font-extrabold text-gold leading-none block mb-2.5">
           {variant === "legacy" ? "TESTIMONIALS & REVIEWS" : "LITERARY RECOGNITION & COMMENDATIONS"}
         </span>
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-burgundy tracking-tight">
+        <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl text-burgundy font-black tracking-tight">
           {variant === "legacy" ? "What Readers Are Saying" : "Praise & Publications"}
         </h2>
         <div className="h-[2px] w-12 bg-[#e9ddc3] mx-auto mt-4 rounded-full" />
@@ -146,7 +146,7 @@ export default function TestimonialsSection({ variant = "full" }: TestimonialsSe
                   Classroom Spotlight
                 </span>
               </div>
-              <h3 className="font-serif text-2xl text-burgundy font-normal tracking-tight mb-2">
+              <h3 className="font-playfair text-2xl text-burgundy font-black tracking-tight mb-2">
                 Educator Endorsement
               </h3>
               <p className="font-sans text-[11px] text-near-black/70 leading-relaxed font-normal">

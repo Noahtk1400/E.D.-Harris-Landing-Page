@@ -12,6 +12,7 @@ import { nav } from "../content";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
@@ -20,6 +21,17 @@ export default function Navbar() {
     setIsOpen(false);
     setDropdownOpen(false);
   }, [location]);
+
+  // Track scrolling state to switch backgrounds gracefully
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Click outside listener for the dropdown menu
   useEffect(() => {
@@ -35,13 +47,28 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-3 left-0 right-0 z-50 w-full px-3 md:top-4 md:px-4">
-      <div className="mx-auto max-w-[1000px]">
-        {/* Rounded Pill Glass Navbar on mobile and desktop */}
+    <header className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
+      isScrolled || isOpen 
+        ? "bg-[#FFFBF4]/95 backdrop-blur-md border-b border-burgundy/10 shadow-xs py-3 md:py-4" 
+        : "bg-transparent py-4 md:py-6"
+    }`}>
+      {/* Soft, beautiful, feathered frosted overlay that perfectly emulates the bottom hero gradient fade */}
+      {!(isScrolled || isOpen) && (
+        <div 
+          className="blur-overlay blur-overlay-top absolute top-0 left-0 w-full pointer-events-none h-[140px] md:h-[200px]" 
+          style={{ 
+            zIndex: 0, 
+            opacity: 0.5,
+            background: 'linear-gradient(to bottom, rgba(255, 251, 244, 0.4) 0%, rgba(255, 251, 244, 0) 100%)' 
+          }} 
+        />
+      )}
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        {/* Borderless Plain Navbar */}
          <motion.nav 
           layout
           id="main-nav-pill" 
-          className="w-full bg-[#FFFBF4]/95 md:bg-white/80 backdrop-blur-md px-4.5 py-2.5 md:px-6 md:py-3 border border-burgundy/10 liquid-glass shadow-sm rounded-[24px] md:rounded-full transition-all duration-300"
+          className="w-full"
           transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="flex items-center justify-between">

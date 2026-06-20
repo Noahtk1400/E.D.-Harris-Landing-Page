@@ -106,16 +106,8 @@ export default function Home() {
               {hero.subline}
             </p>
 
-            {/* Center Story/Couplet Quote Card */}
-            <Link 
-              to="/books/judgy-wudgy"
-              className="mt-3.5 mx-auto inline-flex items-center justify-center bg-white hover:bg-[#FFFBF4] text-near-black font-sans text-xs sm:text-sm font-extrabold tracking-wider rounded-full px-8 py-3.5 shadow-md relative z-30 pointer-events-auto cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300 hover:shadow-lg"
-            >
-              New Introducing Judgy Wudgy Series Book 1
-            </Link>
-
             {/* Action buttons side-by-side centered */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full mt-22 sm:mt-26 md:mt-28 scale-95 sm:scale-100">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full mt-38 sm:mt-44 md:mt-48 scale-95 sm:scale-100">
               <a
                 href="https://store.bookbaby.com/book/judgy-wudgy-was-a-bear1"
                 target="_blank"

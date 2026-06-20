@@ -169,7 +169,7 @@ export default function EmailCapture() {
         </span>
 
         {/* Title "Join the storytelling circle" */}
-        <h2 className="font-serif text-3xl md:text-5xl text-burgundy tracking-tight font-normal leading-tight mb-3 max-w-md md:max-w-2xl">
+        <h2 className="font-playfair text-3xl md:text-5xl text-burgundy tracking-tight font-black leading-tight mb-3 max-w-md md:max-w-2xl">
           Join the storytelling circle
         </h2>
 

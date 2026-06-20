@@ -102,7 +102,7 @@ export default function BookPage() {
               <span className="hidden md:inline-block font-sans text-[10px] uppercase tracking-widest font-bold text-gold bg-gold/5 px-3 py-1 rounded-full border border-gold/10">
                 {book.series}
               </span>
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-burgundy tracking-tight mt-2">
+              <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl text-burgundy font-black tracking-tight mt-2">
                 {book.title}
               </h1>
               <p className="font-sans text-[10px] sm:text-xs text-gold font-bold uppercase tracking-widest mt-1.5">
@@ -203,7 +203,7 @@ export default function BookPage() {
           <span className="font-sans text-[10px] uppercase tracking-widest font-extrabold text-gold leading-none block mb-2.5">
             Book Read-Along & Preview
           </span>
-          <h2 className="font-serif text-2xl sm:text-3xl text-burgundy tracking-tight mb-4">
+          <h2 className="font-playfair text-2xl sm:text-3xl text-burgundy font-black tracking-tight mb-4">
             Experience the Story of Judgy Wudgy
           </h2>
           <div className="h-[2px] w-12 bg-[#e9ddc3] mb-6 rounded-full" />

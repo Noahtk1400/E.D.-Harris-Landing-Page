@@ -45,7 +45,7 @@ export default function ContactPage() {
             Connecting with readers
           </span>
           
-          <h1 className="font-serif text-4xl sm:text-5xl text-burgundy tracking-tight mt-3 mb-4">
+          <h1 className="font-playfair text-4xl sm:text-5xl text-burgundy font-black tracking-tight mt-3 mb-4">
             Get in touch
           </h1>
 

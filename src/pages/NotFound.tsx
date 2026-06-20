@@ -34,7 +34,7 @@ export default function NotFound() {
             Oh dear, a quiet detour!
           </span>
 
-          <h1 className="font-serif text-3xl sm:text-4xl text-burgundy tracking-tight mt-3 mb-4 leading-snug">
+          <h1 className="font-playfair text-3xl sm:text-4xl text-burgundy font-black tracking-tight mt-3 mb-4 leading-snug">
             This page wandered off in the rain, a bit like Judgy Wudgy.
           </h1>
 
