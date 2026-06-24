@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect } from "react";
-import { Mail, ArrowUpRight, Sparkles, Instagram, Facebook } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Mail, ArrowUpRight, Sparkles, Instagram, Facebook, ChevronDown, HelpCircle } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { contactEmail, socials } from "../content";
 import AnimatedSection from "../components/AnimatedSection";
 
@@ -21,8 +22,37 @@ export default function ContactPage() {
     window.scrollTo(0, 0);
   }, []);
 
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      id: "return-policy",
+      question: "What is your Return Policy?",
+      answer: "Because we're a small printer, we can't accept returns for everything, but we can gladly accept returns for defective or damaged items. To start a claim, if your product fits this description, is to head over to contact us at the email address above, info@edharrisbooks.com."
+    },
+    {
+      id: "review-policy",
+      question: "What is your Review Policy?",
+      answer: "We love hearing from our readers! We welcome honest reviews and testimonials from parents, educators, and children. Feel free to share your thoughts with us via email or tag us on Instagram @edharrisbooks. Selected reviews may be featured in our publications or on our website."
+    },
+    {
+      id: "school-visits",
+      question: "Do you offer school or library visits?",
+      answer: "Yes! E.D. Harris is a former NYC Department of Education teacher and loves connecting with young readers. Please reach out to us at info@edharrisbooks.com to discuss virtual or in-person school visits and reading sessions."
+    },
+    {
+      id: "age-range",
+      question: "What age group are your books for?",
+      answer: "The Judgy Wudgy series is specifically written and designed for children ages 3 to 6, focusing on key Social-Emotional Learning (SEL) themes such as kindness, empathy, and friendship."
+    }
+  ];
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
   return (
-    <div id="contact-page" className="w-full relative overflow-hidden flex items-center justify-center min-h-[75vh] pt-24 md:pt-36 pb-12">
+    <div id="contact-page" className="w-full relative overflow-hidden flex flex-col items-center justify-start min-h-[75vh] pt-24 md:pt-36 pb-24">
       {/* Soft floating background rings */}
       <div className="absolute inset-0 pointer-events-none select-none z-0">
         <div className="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-[#BD955C]/5 blur-[90px]" />
@@ -107,6 +137,84 @@ export default function ContactPage() {
             <span className="font-sans text-[10px] sm:text-[11px] uppercase tracking-[0.25em] font-black text-rose-pink">
               @EVDHARRISBOOKS.COM
             </span>
+          </div>
+
+        </div>
+      </AnimatedSection>
+
+      {/* FAQ & Policy Dropdown Section */}
+      <AnimatedSection 
+        id="faq-section" 
+        className="w-full pb-16 px-4 max-w-[640px] mx-auto z-10 relative mt-4"
+      >
+        <div id="faq-card" className="liquid-glass rounded-3xl p-8 sm:p-12">
+          
+          {/* Spark decal */}
+          <div className="w-10 h-10 rounded-full bg-rose-pink/5 border border-rose-pink/15 flex items-center justify-center text-rose-pink mb-6 mx-auto">
+            <HelpCircle className="h-5 w-5" />
+          </div>
+
+          <div className="text-center mb-8">
+            <span className="font-sans text-[10px] uppercase tracking-widest font-bold text-rose-pink">
+              Common Questions & Policies
+            </span>
+            <h2 className="font-playfair text-3xl sm:text-4xl text-burgundy font-black tracking-tight mt-2 mb-3">
+              Frequently Asked Questions
+            </h2>
+            <p className="font-sans text-xs sm:text-sm text-near-black/70 max-w-md mx-auto leading-relaxed">
+              Find answers regarding our return and review policies, printing partners, school sessions, and more.
+            </p>
+          </div>
+
+          <div className="space-y-4 w-full text-left">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaqIndex === idx;
+              return (
+                <div 
+                  key={faq.id} 
+                  id={`faq-item-${faq.id}`}
+                  className={`border border-burgundy/10 rounded-2xl overflow-hidden transition-all duration-300 ${
+                    isOpen 
+                      ? "bg-white/40 border-burgundy/20 shadow-sm" 
+                      : "bg-white/10 hover:bg-white/20 hover:border-burgundy/15"
+                  }`}
+                >
+                  <button
+                    id={`faq-toggle-${faq.id}`}
+                    type="button"
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full flex items-center justify-between p-5 text-left font-sans text-sm sm:text-base font-bold text-burgundy focus:outline-none cursor-pointer"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${faq.id}`}
+                  >
+                    <span className="pr-4">{faq.question}</span>
+                    <ChevronDown 
+                      className={`h-4 w-4 text-burgundy/60 shrink-0 transition-transform duration-300 ${
+                        isOpen ? "transform rotate-180 text-burgundy" : ""
+                      }`} 
+                    />
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={`faq-panel-${faq.id}`}
+                        role="region"
+                        aria-labelledby={`faq-toggle-${faq.id}`}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                      >
+                        <div className="px-5 pb-5 pt-1 border-t border-burgundy/5 font-sans text-xs sm:text-sm text-near-black/80 leading-relaxed font-semibold">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
           </div>
 
         </div>

@@ -79,10 +79,10 @@ export default function Home() {
 
         <AnimatedSection 
           id="hero-section" 
-          className="relative w-full h-full flex flex-col items-center justify-center pt-24 sm:pt-16 pb-12 sm:pb-16 md:pb-20 px-4 max-w-[1100px] mx-auto z-10 text-center"
+          className="relative w-full h-full flex flex-col items-center justify-start pt-20 xs:pt-24 sm:pt-24 md:pt-[115px] pb-12 sm:pb-16 md:pb-20 px-4 max-w-[1100px] mx-auto z-10 text-center"
         >
           {/* Main Visual Layout - Centered matching reference */}
-          <div className="flex flex-col items-center gap-3.5 max-w-4xl mx-auto mt-4 xs:mt-6 sm:-mt-24 md:-mt-28 select-none">
+          <div className="flex flex-col items-center gap-3.5 max-w-4xl mx-auto select-none">
             {/* Pill Header Badge */}
             <Link 
               to="/books/judgy-wudgy"
@@ -105,32 +105,32 @@ export default function Home() {
             <p className="font-sans text-sm sm:text-base md:text-lg text-white/95 font-medium leading-relaxed max-w-2xl mx-auto mt-2 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] select-none">
               {hero.subline}
             </p>
+          </div>
 
-            {/* Action buttons side-by-side centered */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full mt-38 sm:mt-44 md:mt-48 scale-95 sm:scale-100">
-              <a
-                href="https://store.bookbaby.com/book/judgy-wudgy-was-a-bear1"
-                target="_blank"
-                rel="noopener noreferrer"
-                id="hero-order-cta"
-                className="inline-flex items-center justify-center bg-white hover:bg-white/95 text-near-black font-sans text-xs uppercase tracking-wider font-extrabold rounded-full px-8 py-4 transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 text-center w-full sm:w-auto"
-              >
-                Preorder Judgy Wudgy
-                <span className="ml-2 text-sm leading-none">↗</span>
-              </a>
-              
-              <Link
-                to="/books/judgy-wudgy"
-                className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white border border-white/25 backdrop-blur-md font-sans text-xs uppercase tracking-wider font-bold rounded-full px-8 py-4 transition-all duration-300 hover:-translate-y-0.5 text-center w-full sm:w-auto"
-              >
-                Learn More
-              </Link>
-            </div>
+          {/* Action buttons side-by-side centered - positioned right above the words at the bottom */}
+          <div className="absolute bottom-24 xs:bottom-28 sm:bottom-32 md:bottom-34 left-0 right-0 w-full flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 max-w-4xl mx-auto scale-95 sm:scale-100 z-30 pointer-events-auto">
+            <a
+              href="https://store.bookbaby.com/book/judgy-wudgy-was-a-bear1"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="hero-order-cta"
+              className="inline-flex items-center justify-center bg-white hover:bg-white/95 text-near-black font-sans text-xs uppercase tracking-wider font-extrabold rounded-full px-6 py-3.5 sm:px-8 sm:py-4 transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 text-center w-full sm:w-auto"
+            >
+              Preorder Judgy Wudgy
+              <span className="ml-2 text-sm leading-none">↗</span>
+            </a>
+            
+            <Link
+              to="/books/judgy-wudgy"
+              className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white border border-white/25 backdrop-blur-md font-sans text-xs uppercase tracking-wider font-bold rounded-full px-6 py-3.5 sm:px-8 sm:py-4 transition-all duration-300 hover:-translate-y-0.5 text-center w-full sm:w-auto"
+            >
+              Learn More
+            </Link>
           </div>
 
           {/* Elegant footer tags floating at the bottom as requested */}
-          <div className="absolute bottom-12 sm:bottom-16 md:bottom-20 left-0 right-0 w-full text-center z-20 px-4 hidden sm:block">
-            <div className="flex flex-wrap justify-center items-center gap-x-4 md:gap-x-6 gap-y-1.5 text-white font-serif text-lg md:text-xl font-semibold tracking-normal select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] max-w-4xl mx-auto">
+          <div className="absolute bottom-4 xs:bottom-6 sm:bottom-12 md:bottom-16 left-0 right-0 w-full text-center z-20 px-4 block">
+            <div className="flex flex-wrap justify-center items-center gap-x-2 xs:gap-x-3.5 sm:gap-x-4 md:gap-x-6 gap-y-1 text-white font-serif text-[11px] xs:text-xs sm:text-lg md:text-xl font-semibold tracking-normal select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] max-w-4xl mx-auto font-medium">
               <span className="opacity-95 hover:opacity-100 transition-opacity">Kindness</span>
               <span className="text-white/40 font-sans text-xs">•</span>
               <span className="opacity-95 hover:opacity-100 transition-opacity">Empathy</span>
@@ -138,8 +138,8 @@ export default function Home() {
               <span className="opacity-95 hover:opacity-100 transition-opacity">Compassion</span>
               <span className="text-white/40 font-sans text-xs">•</span>
               <span className="opacity-95 hover:opacity-100 transition-opacity">Self-Awareness</span>
-              <span className="text-white/40 font-sans text-xs">•</span>
-              <span className="opacity-95 hover:opacity-100 transition-opacity">Developing Healthy Friendships</span>
+              <span className="text-white/40 font-sans text-xs md:hidden">•</span>
+              <span className="opacity-95 hover:opacity-100 transition-opacity block md:inline">Developing Healthy Friendships</span>
               <span className="text-white/40 font-sans text-xs">•</span>
               <span className="opacity-95 hover:opacity-100 transition-opacity">Resilience</span>
             </div>

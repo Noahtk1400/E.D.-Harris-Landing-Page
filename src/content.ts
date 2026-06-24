@@ -99,7 +99,7 @@ export const publicationMentions: { publication: string; quote: string; issue: s
 // Comment: Add video entries here as { src: string; poster: string; caption: string } when you have user-generated content or promotion files
 export const videos: { src: string; poster: string; caption: string }[] = [];
 
-export const contactEmail = "Info@edharrisbooks.com";
+export const contactEmail = "info@edharrisbooks.com";
 
 export const socials = [
   { platform: "Instagram", url: "https://www.instagram.com/edharrisbooks/", icon: "Instagram" }
