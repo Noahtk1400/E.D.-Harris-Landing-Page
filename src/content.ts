@@ -18,9 +18,9 @@ export const buyLinks = {
   hardcoverUrl: "https://store.bookbaby.com/book/judgy-wudgy-was-a-bear1",
   paperbackUrl: "https://store.bookbaby.com/book/judgy-wudgy-was-a-bear",
   // Comment: Future Amazon product URL will go here
-  amazonUrl: "",
+  amazonUrl: "https://www.amazon.com/Judgy-Wudgy-was-Bear-Learning-ebook/dp/B0H23WDND3?crid=2A34JRKNMM6PT&dib=eyJ2IjoiMSJ9.ht_5z5vKHxL7CU00iZju-g.IUI69spMnor-nzE8O9Jh3BGtlJUmmfVv5YzsgIVtXJA&dib_tag=se&keywords=judgy+wudgy+was+a+bear&qid=1782333834&sprefix=judgy+wudgy+was+a+bea%2Caps%2C107&sr=8-1",
   // Comment: Switch this to true to activate the Amazon preorder/buy button
-  amazonLive: false
+  amazonLive: true
 };
 
 export const author = {

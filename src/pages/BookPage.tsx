@@ -6,6 +6,7 @@
 import { useEffect } from "react";
 import { BookOpen, Sparkles, AlertCircle, Bookmark, ArrowRight } from "lucide-react";
 import { useScroll, useTransform, motion } from "motion/react";
+import { track } from "@vercel/analytics";
 import { book, buyLinks } from "../content";
 import AnimatedSection from "../components/AnimatedSection";
 import TestimonialsSection from "../components/TestimonialsSection";
@@ -133,6 +134,7 @@ export default function BookPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 id="preorder-hardcover-btn"
+                onClick={() => track('buy_click', { location: 'book_page_purchase_box', store: 'BookBaby', edition: 'hardcover' })}
                 className="flex flex-col xs:flex-row items-center justify-center xs:justify-between text-center bg-rose-pink hover:bg-burgundy text-white font-bold text-xs uppercase tracking-wider rounded-2xl xs:rounded-full px-5 py-4 gap-2 transition-all duration-300 shadow-md hover:shadow-lg focus-visible:ring-2 focus-visible:ring-burgundy active:scale-99"
               >
                 <span className="flex items-center gap-2">
@@ -148,6 +150,7 @@ export default function BookPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 id="preorder-paperback-btn"
+                onClick={() => track('buy_click', { location: 'book_page_purchase_box', store: 'BookBaby', edition: 'paperback' })}
                 className="flex flex-col xs:flex-row items-center justify-center xs:justify-between text-center border-2 border-burgundy text-burgundy hover:bg-burgundy hover:text-white font-bold text-xs uppercase tracking-wider rounded-2xl xs:rounded-full px-5 py-3.5 gap-2 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-burgundy active:scale-99"
               >
                 <span>Preorder Paperback Edition</span>
@@ -161,6 +164,7 @@ export default function BookPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   id="amazon-button-active"
+                  onClick={() => track('buy_click', { location: 'book_page_purchase_box', store: 'Amazon' })}
                   className="flex flex-col xs:flex-row items-center justify-center xs:justify-between text-center border-2 border-dashed border-[#BD955C] text-[#BD955C] hover:bg-[#BD955C] hover:text-white font-bold text-xs uppercase tracking-wider rounded-2xl xs:rounded-full px-5 py-3.5 gap-2 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-gold"
                 >
                   <span>Order Now on Amazon</span>

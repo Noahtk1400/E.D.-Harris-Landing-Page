@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Sparkles, ArrowRight, Award } from "lucide-react";
 import { useScroll, useTransform, motion } from "motion/react";
+import { track } from "@vercel/analytics";
 import { hero, book, author } from "../content";
 import AnimatedSection from "../components/AnimatedSection";
 import TestimonialsSection from "../components/TestimonialsSection";
@@ -114,6 +115,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               id="hero-order-cta"
+              onClick={() => track('buy_click', { location: 'home_hero', store: 'BookBaby' })}
               className="inline-flex items-center justify-center bg-white hover:bg-white/95 text-near-black font-sans text-xs uppercase tracking-wider font-extrabold rounded-full px-6 py-3.5 sm:px-8 sm:py-4 transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 text-center w-full sm:w-auto"
             >
               Preorder Judgy Wudgy
