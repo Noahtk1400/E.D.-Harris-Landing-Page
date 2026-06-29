@@ -71,11 +71,11 @@ export default function BookPage() {
           id="book-main-block" 
           className="pt-12 sm:pt-20 pb-10 sm:pb-16 px-4 max-w-[1100px] mx-auto z-10 relative"
         >
-        <div className="liquid-glass rounded-[24px] sm:rounded-[40px] p-3.5 xs:p-5 sm:p-10 md:p-12 transition-all">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-8 items-start">
+        <div className="liquid-glass rounded-[24px] sm:rounded-[40px] p-3.5 xs:p-5 sm:p-10 lg:p-12 transition-all">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             
-            {/* Desktop Left Column: Book cover art showcase (5 cols) */}
-            <div className="hidden md:flex md:col-span-5 flex-col items-center">
+            {/* Desktop Left Column: Book cover art showcase (5 cols on lg+) */}
+            <div className="hidden lg:flex lg:col-span-5 flex-col items-center">
               <motion.div 
                 style={{ y: coverY, rotate: coverRotate }}
                 whileHover={{ scale: 1.03, rotate: 1 }}
@@ -105,37 +105,37 @@ export default function BookPage() {
               </div>
             </div>
 
-            {/* Right Column / Full Mobile Container: Title, CTAs, and Description (7 cols on desktop) */}
-            <div className="md:col-span-7 flex flex-col items-stretch md:items-start gap-3.5 sm:gap-5 w-full">
+            {/* Right Column / Full Mobile & Tablet Container: Title, CTAs, and Description (7 cols on desktop) */}
+            <div className="lg:col-span-7 flex flex-col items-stretch lg:items-start gap-4 sm:gap-6 w-full max-w-2xl mx-auto">
               
-              {/* MOBILE ONLY SIDE-BY-SIDE HEADER: Cover on left, Title on right. Extremely compact, 100% above the fold! */}
-              <div className="flex md:hidden items-center gap-4 w-full">
-                {/* Mobile Cover Art (Larger size and highly polished border) */}
-                <div className="w-[110px] xs:w-[135px] sm:w-[160px] aspect-[4/5] rounded-2xl overflow-hidden shadow-lg border border-burgundy/20 bg-burgundy flex items-center justify-center p-1 xs:p-1.5 shrink-0 relative">
+              {/* MOBILE & TABLET HEADER: Centered cover, centered title, beautifully scaled and spaced! */}
+              <div className="flex lg:hidden flex-col items-center text-center gap-4 sm:gap-6 w-full max-w-md sm:max-w-xl mx-auto mb-4">
+                {/* Cover Art */}
+                <div className="w-[140px] xs:w-[170px] sm:w-[220px] md:w-[260px] aspect-[4/5] rounded-2xl sm:rounded-[32px] overflow-hidden shadow-xl border border-burgundy/20 bg-burgundy flex items-center justify-center p-1.5 sm:p-2 shrink-0 relative transition-transform duration-300 hover:scale-102">
                   {book.coverImage && (
                     <img 
                       src={book.coverImage} 
                       alt={book.title} 
-                      className="w-full h-full object-contain scale-[1.10] rounded-xl z-0 transition-transform duration-500"
+                      className="w-full h-full object-contain scale-[1.10] rounded-xl sm:rounded-[24px] z-0 transition-transform duration-500"
                     />
                   )}
-                  <div className="absolute inset-y-0 left-0 w-[5px] bg-gradient-to-r from-white/10 to-transparent pointer-events-none z-10" />
-                  <div className="absolute inset-0 border-r border-t border-b border-white/10 pointer-events-none rounded-2xl z-20" />
+                  <div className="absolute inset-y-0 left-0 w-[5px] sm:w-[8px] bg-gradient-to-r from-white/10 to-transparent pointer-events-none z-10" />
+                  <div className="absolute inset-0 border-r border-t border-b border-white/10 pointer-events-none rounded-2xl sm:rounded-[32px] z-20" />
                 </div>
 
-                {/* Mobile Title, Series, Age */}
-                <div className="flex-1 text-left flex flex-col gap-1.5">
-                  <h1 className="font-playfair text-2xl xs:text-3xl sm:text-4xl font-black text-burgundy tracking-tight leading-tight">
+                {/* Title, Series, Age */}
+                <div className="flex flex-col gap-1.5 sm:gap-2.5">
+                  <h1 className="font-playfair text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-black text-burgundy tracking-tight leading-tight">
                     {book.title}
                   </h1>
-                  <p className="font-sans text-[9px] xs:text-[10px] text-gold font-bold uppercase tracking-widest leading-none">
+                  <p className="font-sans text-[10px] xs:text-xs sm:text-sm text-gold font-bold uppercase tracking-widest leading-none">
                     {book.ageRange}
                   </p>
                 </div>
               </div>
 
               {/* DESKTOP ONLY HEADER: Beautiful, spacious, elegant */}
-              <div className="hidden md:block text-left w-full">
+              <div className="hidden lg:block text-left w-full">
                 <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl text-burgundy font-black tracking-tight">
                   {book.title}
                 </h1>
@@ -146,7 +146,7 @@ export default function BookPage() {
 
               <div className="h-[1px] w-full bg-burgundy/10 my-0.5 sm:my-1" />
 
-              {/* PREORDER PURCHASE BOX IN VISUAL HIERARCHY - Placement: Direct underneath Title, ABOVE Description! */}
+              {/* PREORDER PURCHASE BOX IN VISUAL HIERARCHY */}
               <div className="w-full flex flex-col gap-3 font-sans mt-2 items-center">
                 <div className="flex flex-row items-center justify-between border-b border-burgundy/10 pb-3 w-full gap-4 max-w-md">
                   <span className="text-[9px] xs:text-[10px] sm:text-[11px] uppercase tracking-wider xs:tracking-widest font-black text-near-black/55 whitespace-nowrap">
@@ -158,7 +158,7 @@ export default function BookPage() {
                   </span>
                 </div>
 
-                {/* TIER 1: OPTION 1 - PREORDER ON AMAZON (Top-ranked, most familiar, high trust) */}
+                {/* TIER 1: OPTION 1 - PREORDER ON AMAZON */}
                 {buyLinks.amazonLive ? (
                   <a
                     href={buyLinks.amazonUrl}
@@ -190,7 +190,7 @@ export default function BookPage() {
                   </div>
                 )}
 
-                {/* TIER 1: OPTION 2 - SECURE DIRECT SQUARE CHECKOUT (Directly underneath) */}
+                {/* TIER 1: OPTION 2 - SECURE DIRECT SQUARE CHECKOUT */}
                 <button 
                   type="button"
                   onClick={() => {
@@ -234,8 +234,8 @@ export default function BookPage() {
                 </div>
               </div>
 
-              {/* TIER 2: SECONDARY PUBLISHER OPTIONS (Lesser-known channel neatly organized) */}
-              <div className="border border-burgundy/10 rounded-xl overflow-hidden bg-white/40 w-full mt-1">
+              {/* TIER 2: SECONDARY PUBLISHER OPTIONS */}
+              <div className="border border-burgundy/10 rounded-xl overflow-hidden bg-white/40 w-full max-w-md lg:max-w-none mx-auto lg:mx-0 mt-1">
                 <button
                   type="button"
                   onClick={() => setShowOtherRetailers(!showOtherRetailers)}
@@ -294,15 +294,15 @@ export default function BookPage() {
                 )}
               </div>
 
-              {/* Mobile-only Lyric Book Verse Hook */}
-              <div className="block md:hidden mt-2 text-center max-w-sm mx-auto p-4 bg-burgundy/5 rounded-2xl border border-burgundy/10 w-full">
+              {/* Mobile & Tablet Lyric Book Verse Hook */}
+              <div className="block lg:hidden mt-3 text-center max-w-md mx-auto p-4 bg-burgundy/5 rounded-2xl border border-burgundy/10 w-full">
                 <p className="font-serif text-base xs:text-lg italic text-burgundy font-medium leading-relaxed">
                   “{book.hookCouplet}”
                 </p>
               </div>
 
               {/* BOOK DESCRIPTION/SYNOPSIS - Positioned beautifully below the fold! */}
-              <div className="font-sans text-[11px] xs:text-xs sm:text-sm text-near-black/80 leading-relaxed font-semibold mt-4 border-t border-burgundy/5 pt-4">
+              <div className="font-sans text-[11px] xs:text-xs sm:text-sm text-near-black/80 leading-relaxed font-semibold mt-4 border-t border-burgundy/5 pt-4 w-full max-w-md lg:max-w-none mx-auto lg:mx-0">
                 <p>
                   How can a grouchy little bear learn the weight of his sharp-stinging opinions?
                 </p>
@@ -364,7 +364,7 @@ export default function BookPage() {
           />
           
           {/* Modal Container */}
-          <div className="relative bg-[#FFFBF4] border border-burgundy/15 w-full max-w-lg rounded-[28px] shadow-3xl overflow-hidden z-10 animate-scaleUp max-h-[90vh] flex flex-col">
+          <div className="relative bg-[#FFFBF4] border border-burgundy/15 w-full max-w-lg md:max-w-3xl rounded-[28px] shadow-3xl overflow-hidden z-10 animate-scaleUp max-h-[95vh] md:max-h-[90vh] flex flex-col">
             {/* Header with Secure Badging */}
             <div className="p-4 sm:p-5 border-b border-burgundy/10 bg-burgundy text-white flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -402,7 +402,7 @@ export default function BookPage() {
             </div>
 
             {/* Seamless Embed Frame Container with animated loader */}
-            <div className="flex-1 bg-white overflow-hidden relative min-h-[460px] flex flex-col">
+            <div className="flex-1 bg-white overflow-hidden relative min-h-[460px] md:min-h-[650px] flex flex-col">
               {isIframeLoading && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-white z-10 gap-3">
                   <div className="w-8 h-8 rounded-full border-[3px] border-burgundy/10 border-t-burgundy animate-spin" />
