@@ -93,11 +93,11 @@ export default function ContactPage() {
               <div className="p-2 rounded-full bg-burgundy/10 text-burgundy">
                 <Mail className="h-4 w-4" />
               </div>
-              <div className="text-left">
+              <div className="text-left min-w-0">
                 <span className="block font-sans text-[9px] uppercase tracking-wider font-bold text-near-black/40">
                   Direct Email
                 </span>
-                <span className="font-sans text-xs sm:text-sm font-bold text-burgundy break-all">
+                <span className="font-sans text-xs sm:text-sm font-bold text-burgundy whitespace-nowrap block">
                   {contactEmail}
                 </span>
               </div>

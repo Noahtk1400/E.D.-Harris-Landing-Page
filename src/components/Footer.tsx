@@ -131,7 +131,7 @@ export default function Footer() {
                   <li>
                     <a 
                       href={`mailto:${contactEmail}`}
-                      className="hover:text-burgundy transition-colors duration-200 break-all"
+                      className="hover:text-burgundy transition-colors duration-200 text-[11px] whitespace-nowrap block"
                     >
                       Email Author
                     </a>

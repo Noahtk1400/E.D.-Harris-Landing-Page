@@ -147,12 +147,12 @@ export default function BookPage() {
               <div className="h-[1px] w-full bg-burgundy/10 my-0.5 sm:my-1" />
 
               {/* PREORDER PURCHASE BOX IN VISUAL HIERARCHY - Placement: Direct underneath Title, ABOVE Description! */}
-              <div className="w-full flex flex-col gap-2.5 sm:gap-3 font-sans">
-                <div className="flex items-center justify-between border-b border-burgundy/10 pb-1.5">
-                  <span className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-near-black/50 whitespace-nowrap">
+              <div className="w-full flex flex-col gap-3 font-sans mt-2 items-center">
+                <div className="flex flex-row items-center justify-between border-b border-burgundy/10 pb-3 w-full gap-4 max-w-md">
+                  <span className="text-[9px] xs:text-[10px] sm:text-[11px] uppercase tracking-wider xs:tracking-widest font-black text-near-black/55 whitespace-nowrap">
                     Select Preorder Option
                   </span>
-                  <span className="flex items-center gap-1 text-[9px] sm:text-[10px] text-emerald-600 font-bold uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                  <span className="flex items-center gap-1 sm:gap-1.5 text-[8.5px] xs:text-[9px] sm:text-[10px] text-emerald-600 font-bold uppercase tracking-widest bg-emerald-50 px-2.5 py-0.5 xs:px-3 xs:py-1 rounded-full border border-emerald-100 shadow-xs whitespace-nowrap shrink-0">
                     <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
                     Secure checkout
                   </span>
@@ -166,20 +166,20 @@ export default function BookPage() {
                     rel="noopener noreferrer"
                     id="amazon-button-active"
                     onClick={() => track('buy_click', { location: 'book_page_hierarchy_top', store: 'Amazon' })}
-                    className="group flex flex-col sm:flex-row items-center justify-between text-center bg-white hover:bg-[#FFFBF4] text-burgundy border border-burgundy/25 hover:border-burgundy/45 font-extrabold text-xs uppercase tracking-wider rounded-xl px-4 py-3.5 gap-2 transition-all duration-300 shadow-sm hover:shadow-md active:scale-99 w-full"
+                    className="group flex flex-col items-center justify-center text-center bg-white hover:bg-[#FFFBF4] text-burgundy border border-burgundy/25 hover:border-burgundy/45 font-extrabold text-[10px] xs:text-xs uppercase tracking-wider rounded-xl px-3 py-3.5 sm:px-4 sm:py-4 gap-1 sm:gap-1.5 transition-all duration-300 shadow-sm hover:shadow-md active:scale-99 w-full max-w-md"
                   >
-                    <span className="flex items-center gap-2">
-                      <ShoppingBag className="h-4 w-4 shrink-0 text-burgundy/70" />
+                    <span className="flex items-center gap-1.5 justify-center">
+                      <ShoppingBag className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-burgundy/70" />
                       Preorder on Amazon
                     </span>
-                    <span className="text-[10px] tracking-wider opacity-90 font-black uppercase flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-burgundy/80">
-                      Go to Amazon <ArrowRight className="h-3.5 w-3.5 text-burgundy/70" />
+                    <span className="text-[9px] sm:text-[10px] tracking-wider opacity-90 font-black uppercase flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-burgundy/80">
+                      Go to Amazon <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-burgundy/70" />
                     </span>
                   </a>
                 ) : (
                   <div 
                     id="amazon-button-disabled"
-                    className="flex items-center justify-between text-center bg-[#E6EBE1]/40 border border-near-black/10 text-near-black/35 font-bold text-xs uppercase tracking-wider rounded-xl px-4 py-3.5 select-none w-full"
+                    className="flex items-center justify-between text-center bg-[#E6EBE1]/40 border border-near-black/10 text-near-black/35 font-bold text-xs uppercase tracking-wider rounded-xl px-4 py-3.5 select-none w-full max-w-md"
                     title="Amazon preorder coming soon in July"
                   >
                     <span className="flex items-center gap-2 italic">
@@ -197,18 +197,33 @@ export default function BookPage() {
                     track('buy_click', { location: 'book_page_square_direct_buy', store: 'Square' });
                     setIsCheckoutOpen(true);
                   }}
-                  className="group flex flex-col sm:flex-row items-center justify-between text-center bg-burgundy hover:bg-[#7d2030] text-white font-extrabold text-xs uppercase tracking-wider rounded-xl px-4 py-3.5 gap-2 transition-all duration-300 shadow-md hover:shadow-lg active:scale-99 w-full"
+                  className="group flex flex-col items-center justify-center text-center bg-burgundy hover:bg-[#7d2030] text-white rounded-xl px-3 py-3.5 sm:px-4 sm:py-4 gap-1 sm:gap-1.5 transition-all duration-300 shadow-md hover:shadow-lg active:scale-99 w-full max-w-md border border-emerald-500/45 relative overflow-hidden"
                 >
-                  <span className="flex items-center gap-2">
-                    <CreditCard className="h-4 w-4 shrink-0 text-gold" />
-                    Buy Direct with Square
-                  </span>
-                  <span className="text-[10px] tracking-wider opacity-90 font-black uppercase flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-gold">
-                    On-Site Checkout <ArrowRight className="h-3.5 w-3.5 text-gold" />
+                  {/* Premium green accent border on top */}
+                  <div className="absolute top-0 inset-x-0 h-[3px] bg-emerald-500" />
+                  
+                  <div className="flex flex-wrap items-center gap-1.5 justify-center w-full">
+                    <div className="flex items-center gap-1 sm:gap-1.5 justify-center">
+                      <CreditCard className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-gold" />
+                      <span className="font-sans font-black text-[10px] xs:text-xs sm:text-sm uppercase tracking-wider text-white">
+                        Buy Direct with Square
+                      </span>
+                    </div>
+                    <span className="bg-emerald-600 text-white text-[8px] xs:text-[9px] font-black px-1.5 py-0.5 rounded uppercase tracking-wider border border-emerald-500 shadow-xs shrink-0 animate-pulse">
+                      30% Off
+                    </span>
+                  </div>
+                  
+                  <p className="text-[9px] sm:text-[10.5px] font-semibold text-emerald-400 tracking-wide leading-none">
+                    Order directly via Square and save 30% instantly
+                  </p>
+                  
+                  <span className="text-[9px] sm:text-[10px] tracking-wider opacity-90 font-black uppercase flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-gold mt-1">
+                    On-Site Checkout <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-gold" />
                   </span>
                 </button>
 
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-1.5 w-full text-center sm:text-left mt-0.5 px-1">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-1.5 w-full text-center sm:text-left mt-0.5 px-1 max-w-md">
                   <span className="text-[9px] font-bold text-near-black/50 uppercase tracking-widest">
                     Cards Accepted: Visa • Mastercard • Amex • Discover • Apple Pay
                   </span>
@@ -375,6 +390,17 @@ export default function BookPage() {
               </button>
             </div>
 
+            {/* Exclusive Discount Header Banner */}
+            <div className="bg-emerald-50 border-b border-emerald-500/15 px-4 py-2 flex items-center justify-between text-left">
+              <span className="text-[10px] sm:text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles className="h-3.5 w-3.5 text-emerald-600 animate-pulse shrink-0" />
+                Direct Order 30% Promotion Applied
+              </span>
+              <span className="bg-emerald-600 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded uppercase tracking-wider">
+                30% Off
+              </span>
+            </div>
+
             {/* Seamless Embed Frame Container with animated loader */}
             <div className="flex-1 bg-white overflow-hidden relative min-h-[460px] flex flex-col">
               {isIframeLoading && (
@@ -429,13 +455,13 @@ export default function BookPage() {
           {/* Left Side: Elegant literary CTA (Hidden on small mobile screens to prevent button collision) */}
           <div className="hidden sm:flex flex-col text-left shrink-0">
             <div className="flex items-center gap-1.5 leading-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse shrink-0" />
-              <span className="block font-sans text-[9px] uppercase tracking-widest font-black text-gold/95 leading-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+              <span className="block font-sans text-[9px] uppercase tracking-widest font-black text-emerald-600 leading-none">
                 Don't miss the action!
               </span>
             </div>
             <h4 className="font-playfair text-sm font-black text-burgundy mt-1.5 leading-none tracking-tight">
-              Judgy Wudgy <span className="font-sans text-[10px] text-near-black/50 ml-1.5 font-semibold">— Preorder Special</span>
+              Judgy Wudgy <span className="font-sans text-[10px] text-emerald-600 ml-1.5 font-bold uppercase tracking-wider">— Save 30% Direct</span>
             </h4>
           </div>
 
@@ -469,8 +495,8 @@ export default function BookPage() {
               }}
               className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-burgundy hover:bg-[#7d2030] text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-wider rounded-xl px-3.5 py-2.5 transition-all duration-200 active:scale-98 shadow-sm shrink-0 text-center"
             >
-              <CreditCard className="h-3.5 w-3.5 shrink-0 text-gold" />
-              <span>Buy Direct</span>
+              <CreditCard className="h-3.5 w-3.5 shrink-0 text-gold animate-pulse" />
+              <span>Buy Direct (30% Off)</span>
             </button>
           </div>
 
