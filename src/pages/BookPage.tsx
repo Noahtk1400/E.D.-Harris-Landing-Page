@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect } from "react";
-import { BookOpen, Sparkles, AlertCircle, Bookmark, ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { BookOpen, Sparkles, AlertCircle, Bookmark, ArrowRight, ShieldCheck, ShoppingBag, ExternalLink, ChevronDown, ChevronUp, CreditCard, X } from "lucide-react";
 import { useScroll, useTransform, motion } from "motion/react";
 import { track } from "@vercel/analytics";
 import { book, buyLinks } from "../content";
@@ -14,9 +14,32 @@ import TestimonialsSection from "../components/TestimonialsSection";
 import EmailCapture from "../components/EmailCapture";
 
 export default function BookPage() {
-  // Always scroll to top when mounting Book Details page
+  const [showOtherRetailers, setShowOtherRetailers] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [showStickyBar, setShowStickyBar] = useState(false);
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
+
+  // Monitor checkout open to reset iframe loading spinner
+  useEffect(() => {
+    if (isCheckoutOpen) {
+      setIsIframeLoading(true);
+    }
+  }, [isCheckoutOpen]);
+
+  // Always scroll to top when mounting Book Details page and track scroll for sticky bar
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const handleScroll = () => {
+      if (window.scrollY > 450) {
+        setShowStickyBar(true);
+      } else {
+        setShowStickyBar(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const { scrollY } = useScroll();
@@ -46,20 +69,20 @@ export default function BookPage() {
         {/* SECTION 1: PREORDER BLOCK - Top deep showcase */}
         <AnimatedSection 
           id="book-main-block" 
-          className="pt-28 pb-16 px-4 max-w-[1100px] mx-auto z-10 relative"
+          className="pt-12 sm:pt-20 pb-10 sm:pb-16 px-4 max-w-[1100px] mx-auto z-10 relative"
         >
-        <div className="liquid-glass rounded-[32px] sm:rounded-[40px] p-5 xs:p-6 sm:p-10 md:p-12 transition-all">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        <div className="liquid-glass rounded-[24px] sm:rounded-[40px] p-3.5 xs:p-5 sm:p-10 md:p-12 transition-all">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-8 items-start">
             
-            {/* Left Column: Book cover art showcase (5 cols) */}
-            <div className="md:col-span-5 flex flex-col items-center">
+            {/* Desktop Left Column: Book cover art showcase (5 cols) */}
+            <div className="hidden md:flex md:col-span-5 flex-col items-center">
               <motion.div 
                 style={{ y: coverY, rotate: coverRotate }}
                 whileHover={{ scale: 1.03, rotate: 1 }}
                 transition={{ type: "spring", stiffness: 200, damping: 25 }}
                 className="relative w-full max-w-[325px] aspect-[4/5] rounded-[32px] overflow-hidden shadow-2xl border border-burgundy/15 bg-burgundy flex items-center justify-center p-1.5"
               >
-                {/* Actual Book Cover Image (Scaled up 10%, no white border, red background blending seamlessly) */}
+                {/* Actual Book Cover Image */}
                 {book.coverImage && (
                   <img 
                     src={book.coverImage} 
@@ -69,133 +92,215 @@ export default function BookPage() {
                   />
                 )}
 
-                {/* Bookmark on top: keep the ages three to six picture book at the top and delete the rest */}
-                <div className="absolute top-0 inset-x-0 p-4 z-10 bg-gradient-to-b from-black/25 via-black/5 to-transparent flex justify-between items-center">
-                  <span className="font-sans text-[10px] text-white uppercase tracking-widest font-extrabold drop-shadow">
-                    Age 3–6 Picture Book
-                  </span>
-                  <Bookmark className="h-4 w-4 text-white fill-white/10 drop-shadow-sm" />
-                </div>
-
                 {/* Decorative premium cover reflection edge */}
                 <div className="absolute inset-y-0 left-0 w-[15px] bg-gradient-to-r from-white/15 via-white/5 to-transparent pointer-events-none z-10" />
                 <div className="absolute inset-0 border-r border-t border-b border-white/10 pointer-events-none rounded-[32px] z-20" />
               </motion.div>
             
-            {/* Mobile-only: Series Tag on single line, placed above any lyric hook */}
-            <div className="block md:hidden mt-6 text-center w-full px-2 overflow-hidden">
-              <span className="font-sans text-[10px] xs:text-xs font-black uppercase text-gold bg-[#FFFBF4]/80 px-4 py-2 rounded-full border border-gold/20 shadow-sm whitespace-nowrap inline-block tracking-widest leading-none">
-                {book.series}
-              </span>
-            </div>
-
-            {/* Desktop-only: Soft hook couplet displayed centered list beneath the cover */}
-            <div className="hidden md:block mt-6 text-center max-w-sm">
-              <p className="font-serif text-lg italic text-burgundy font-medium mt-1 leading-relaxed">
-                “{book.hookCouplet}”
-              </p>
-            </div>
-          </div>
-
-          {/* Right Column: Title and Preorder CTAs (7-cols) */}
-          <div className="md:col-span-7 flex flex-col items-stretch md:items-start gap-6 w-full">
-            <div className="text-center md:text-left">
-              <span className="hidden md:inline-block font-sans text-[10px] uppercase tracking-widest font-bold text-gold bg-gold/5 px-3 py-1 rounded-full border border-gold/10">
-                {book.series}
-              </span>
-              <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl text-burgundy font-black tracking-tight mt-2">
-                {book.title}
-              </h1>
-              <p className="font-sans text-[10px] sm:text-xs text-gold font-bold uppercase tracking-widest mt-1.5">
-                {book.ageRange}
-              </p>
-            </div>
-
-            <div className="h-[1px] w-full bg-burgundy/10" />
-
-            <div className="font-sans text-xs sm:text-sm text-near-black/85 leading-relaxed font-semibold">
-              <p>
-                How can a grouchy little bear learn the weight of his sharp-stinging opinions?
-              </p>
-              <p className="mt-3">
-                <em>Judgy Wudgy</em> is a beautiful, watercolor-illustrated story that teaches young readers (ages 3 to 6) the foundations of empathy, emotional awareness, and peer belonging, showing how easy it is to distance others—and how healing it is to choose kindness.
-              </p>
-            </div>
-
-            {/* PREORDER PURCHASE BOX IN VISUAL HIERARCHY */}
-            <div className="w-full flex flex-col gap-3 font-sans">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-near-black/50 text-center md:text-left mb-1">
-                Reserve your copy today
-              </span>
-
-              {/* BUTTON A: Primary (Strongest weight) */}
-              <a
-                href={buyLinks.hardcoverUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                id="preorder-hardcover-btn"
-                onClick={() => track('buy_click', { location: 'book_page_purchase_box', store: 'BookBaby', edition: 'hardcover' })}
-                className="flex flex-col xs:flex-row items-center justify-center xs:justify-between text-center bg-rose-pink hover:bg-burgundy text-white font-bold text-xs uppercase tracking-wider rounded-2xl xs:rounded-full px-5 py-4 gap-2 transition-all duration-300 shadow-md hover:shadow-lg focus-visible:ring-2 focus-visible:ring-burgundy active:scale-99"
-              >
-                <span className="flex items-center gap-2">
-                  <BookOpen className="h-4 w-4 shrink-0" />
-                  Preorder Hardcover Edition
-                </span>
-                <span className="text-[10px] tracking-wider opacity-90 font-semibold">Via BookBaby</span>
-              </a>
-
-              {/* BUTTON B: Secondary */}
-              <a
-                href={buyLinks.paperbackUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                id="preorder-paperback-btn"
-                onClick={() => track('buy_click', { location: 'book_page_purchase_box', store: 'BookBaby', edition: 'paperback' })}
-                className="flex flex-col xs:flex-row items-center justify-center xs:justify-between text-center border-2 border-burgundy text-burgundy hover:bg-burgundy hover:text-white font-bold text-xs uppercase tracking-wider rounded-2xl xs:rounded-full px-5 py-3.5 gap-2 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-burgundy active:scale-99"
-              >
-                <span>Preorder Paperback Edition</span>
-                <span className="text-[10px] tracking-wider opacity-75 font-semibold">Via BookBaby</span>
-              </a>
-
-              {/* BUTTON C: Ghost/Conditional Dimmed */}
-              {buyLinks.amazonLive ? (
-                <a
-                  href={buyLinks.amazonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  id="amazon-button-active"
-                  onClick={() => track('buy_click', { location: 'book_page_purchase_box', store: 'Amazon' })}
-                  className="flex flex-col xs:flex-row items-center justify-center xs:justify-between text-center border-2 border-dashed border-[#BD955C] text-[#BD955C] hover:bg-[#BD955C] hover:text-white font-bold text-xs uppercase tracking-wider rounded-2xl xs:rounded-full px-5 py-3.5 gap-2 transition-all duration-300 focus-visible:ring-2 focus-visible:ring-gold"
-                >
-                  <span>Order Now on Amazon</span>
-                  <Sparkles className="h-4 w-4 text-[#BD955C] shrink-0" />
-                </a>
-              ) : (
-                <div 
-                  id="amazon-button-disabled"
-                  className="flex flex-col xs:flex-row items-center justify-center xs:justify-between text-center bg-[#E6EBE1]/40 border-2 border-near-black/10 text-near-black/35 font-bold text-xs uppercase tracking-wider rounded-2xl xs:rounded-full px-5 py-3.5 gap-2 select-none"
-                  title="Amazon availability coming soon in July"
-                >
-                  <span className="flex items-center gap-2 italic">
-                    <AlertCircle className="h-4 w-4 text-near-black/25 shrink-0" />
-                    Coming to Amazon in July
-                  </span>
-                  <span className="text-[10px] tracking-wider uppercase font-semibold">Not yet live</span>
-                </div>
-              )}
-
-              {/* Mobile-only Lyric Book Verse Hook under Coming to Amazon in July */}
-              <div className="block md:hidden mt-4 text-center max-w-sm mx-auto p-4 bg-burgundy/5 rounded-2xl border border-burgundy/10 w-full">
-                <p className="font-serif text-base xs:text-lg italic text-burgundy font-medium mt-1.5 leading-relaxed">
+              {/* Desktop-only: Soft hook couplet displayed centered list beneath the cover */}
+              <div className="mt-6 text-center max-w-sm">
+                <p className="font-serif text-lg italic text-burgundy font-medium mt-1 leading-relaxed">
                   “{book.hookCouplet}”
                 </p>
               </div>
             </div>
 
+            {/* Right Column / Full Mobile Container: Title, CTAs, and Description (7 cols on desktop) */}
+            <div className="md:col-span-7 flex flex-col items-stretch md:items-start gap-3.5 sm:gap-5 w-full">
+              
+              {/* MOBILE ONLY SIDE-BY-SIDE HEADER: Cover on left, Title on right. Extremely compact, 100% above the fold! */}
+              <div className="flex md:hidden items-center gap-4 w-full">
+                {/* Mobile Cover Art (Larger size and highly polished border) */}
+                <div className="w-[110px] xs:w-[135px] sm:w-[160px] aspect-[4/5] rounded-2xl overflow-hidden shadow-lg border border-burgundy/20 bg-burgundy flex items-center justify-center p-1 xs:p-1.5 shrink-0 relative">
+                  {book.coverImage && (
+                    <img 
+                      src={book.coverImage} 
+                      alt={book.title} 
+                      className="w-full h-full object-contain scale-[1.10] rounded-xl z-0 transition-transform duration-500"
+                    />
+                  )}
+                  <div className="absolute inset-y-0 left-0 w-[5px] bg-gradient-to-r from-white/10 to-transparent pointer-events-none z-10" />
+                  <div className="absolute inset-0 border-r border-t border-b border-white/10 pointer-events-none rounded-2xl z-20" />
+                </div>
+
+                {/* Mobile Title, Series, Age */}
+                <div className="flex-1 text-left flex flex-col gap-1.5">
+                  <h1 className="font-playfair text-2xl xs:text-3xl sm:text-4xl font-black text-burgundy tracking-tight leading-tight">
+                    {book.title}
+                  </h1>
+                  <p className="font-sans text-[9px] xs:text-[10px] text-gold font-bold uppercase tracking-widest leading-none">
+                    {book.ageRange}
+                  </p>
+                </div>
+              </div>
+
+              {/* DESKTOP ONLY HEADER: Beautiful, spacious, elegant */}
+              <div className="hidden md:block text-left w-full">
+                <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl text-burgundy font-black tracking-tight">
+                  {book.title}
+                </h1>
+                <p className="font-sans text-[10px] sm:text-xs text-gold font-bold uppercase tracking-widest mt-1.5">
+                  {book.ageRange}
+                </p>
+              </div>
+
+              <div className="h-[1px] w-full bg-burgundy/10 my-0.5 sm:my-1" />
+
+              {/* PREORDER PURCHASE BOX IN VISUAL HIERARCHY - Placement: Direct underneath Title, ABOVE Description! */}
+              <div className="w-full flex flex-col gap-2.5 sm:gap-3 font-sans">
+                <div className="flex items-center justify-between border-b border-burgundy/10 pb-1.5">
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-near-black/50 whitespace-nowrap">
+                    Select Preorder Option
+                  </span>
+                  <span className="flex items-center gap-1 text-[9px] sm:text-[10px] text-emerald-600 font-bold uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                    <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
+                    Secure checkout
+                  </span>
+                </div>
+
+                {/* TIER 1: OPTION 1 - PREORDER ON AMAZON (Top-ranked, most familiar, high trust) */}
+                {buyLinks.amazonLive ? (
+                  <a
+                    href={buyLinks.amazonUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    id="amazon-button-active"
+                    onClick={() => track('buy_click', { location: 'book_page_hierarchy_top', store: 'Amazon' })}
+                    className="group flex flex-col sm:flex-row items-center justify-between text-center bg-white hover:bg-[#FFFBF4] text-burgundy border border-burgundy/25 hover:border-burgundy/45 font-extrabold text-xs uppercase tracking-wider rounded-xl px-4 py-3.5 gap-2 transition-all duration-300 shadow-sm hover:shadow-md active:scale-99 w-full"
+                  >
+                    <span className="flex items-center gap-2">
+                      <ShoppingBag className="h-4 w-4 shrink-0 text-burgundy/70" />
+                      Preorder on Amazon
+                    </span>
+                    <span className="text-[10px] tracking-wider opacity-90 font-black uppercase flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-burgundy/80">
+                      Go to Amazon <ArrowRight className="h-3.5 w-3.5 text-burgundy/70" />
+                    </span>
+                  </a>
+                ) : (
+                  <div 
+                    id="amazon-button-disabled"
+                    className="flex items-center justify-between text-center bg-[#E6EBE1]/40 border border-near-black/10 text-near-black/35 font-bold text-xs uppercase tracking-wider rounded-xl px-4 py-3.5 select-none w-full"
+                    title="Amazon preorder coming soon in July"
+                  >
+                    <span className="flex items-center gap-2 italic">
+                      <AlertCircle className="h-4 w-4 text-near-black/25 shrink-0" />
+                      Coming to Amazon in July
+                    </span>
+                    <span className="text-[9px] tracking-wider uppercase font-semibold">Preorder soon</span>
+                  </div>
+                )}
+
+                {/* TIER 1: OPTION 2 - SECURE DIRECT SQUARE CHECKOUT (Directly underneath) */}
+                <button 
+                  type="button"
+                  onClick={() => {
+                    track('buy_click', { location: 'book_page_square_direct_buy', store: 'Square' });
+                    setIsCheckoutOpen(true);
+                  }}
+                  className="group flex flex-col sm:flex-row items-center justify-between text-center bg-burgundy hover:bg-[#7d2030] text-white font-extrabold text-xs uppercase tracking-wider rounded-xl px-4 py-3.5 gap-2 transition-all duration-300 shadow-md hover:shadow-lg active:scale-99 w-full"
+                >
+                  <span className="flex items-center gap-2">
+                    <CreditCard className="h-4 w-4 shrink-0 text-gold" />
+                    Buy Direct with Square
+                  </span>
+                  <span className="text-[10px] tracking-wider opacity-90 font-black uppercase flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-gold">
+                    On-Site Checkout <ArrowRight className="h-3.5 w-3.5 text-gold" />
+                  </span>
+                </button>
+
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-1.5 w-full text-center sm:text-left mt-0.5 px-1">
+                  <span className="text-[9px] font-bold text-near-black/50 uppercase tracking-widest">
+                    Cards Accepted: Visa • Mastercard • Amex • Discover • Apple Pay
+                  </span>
+                  <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-widest flex items-center justify-center gap-1">
+                    <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                    SSL Encrypted • Powered by Square
+                  </span>
+                </div>
+              </div>
+
+              {/* TIER 2: SECONDARY PUBLISHER OPTIONS (Lesser-known channel neatly organized) */}
+              <div className="border border-burgundy/10 rounded-xl overflow-hidden bg-white/40 w-full mt-1">
+                <button
+                  type="button"
+                  onClick={() => setShowOtherRetailers(!showOtherRetailers)}
+                  className="w-full flex items-center justify-between px-4 py-2.5 bg-burgundy/5 hover:bg-burgundy/10 transition-colors duration-200 text-left"
+                >
+                  <span className="text-[10px] font-bold text-burgundy uppercase tracking-wider flex items-center gap-2">
+                    <BookOpen className="h-4 w-4 text-burgundy/60 shrink-0" />
+                    Other Formats & Publisher Store (BookBaby)
+                  </span>
+                  {showOtherRetailers ? (
+                    <ChevronUp className="h-4 w-4 text-burgundy/60 shrink-0" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-burgundy/60 shrink-0" />
+                  )}
+                </button>
+
+                {showOtherRetailers && (
+                  <div className="p-4 bg-[#FFFBF4]/40 border-t border-burgundy/10 flex flex-col gap-2.5 animate-fadeIn">
+                    <p className="text-[11px] text-near-black/60 font-semibold leading-relaxed mb-1">
+                      Our custom-bound collector editions are also available to preorder directly through our publisher, BookBaby, supporting independent printing.
+                    </p>
+                    
+                    {/* BookBaby Hardcover Link */}
+                    <a
+                      href={buyLinks.hardcoverUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      id="preorder-hardcover-btn"
+                      onClick={() => track('buy_click', { location: 'book_page_secondary_accordion', store: 'BookBaby', edition: 'hardcover' })}
+                      className="flex items-center justify-between text-center border border-burgundy/30 text-burgundy hover:bg-burgundy/5 font-bold text-xs uppercase tracking-wider rounded-xl px-4 py-3 transition-all duration-200 active:scale-99"
+                    >
+                      <span className="flex items-center gap-1.5">
+                        <BookOpen className="h-3.5 w-3.5 text-burgundy" />
+                        Hardcover Edition
+                      </span>
+                      <span className="text-[9px] opacity-75 font-semibold flex items-center gap-0.5">
+                        BookBaby Store <ExternalLink className="h-2.5 w-2.5" />
+                      </span>
+                    </a>
+
+                    {/* BookBaby Paperback Link */}
+                    <a
+                      href={buyLinks.paperbackUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      id="preorder-paperback-btn"
+                      onClick={() => track('buy_click', { location: 'book_page_secondary_accordion', store: 'BookBaby', edition: 'paperback' })}
+                      className="flex items-center justify-between text-center border border-burgundy/30 text-burgundy hover:bg-burgundy/5 font-bold text-xs uppercase tracking-wider rounded-xl px-4 py-3 transition-all duration-200 active:scale-99"
+                    >
+                      <span>Paperback Edition</span>
+                      <span className="text-[9px] opacity-75 font-semibold flex items-center gap-0.5">
+                        BookBaby Store <ExternalLink className="h-2.5 w-2.5" />
+                      </span>
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile-only Lyric Book Verse Hook */}
+              <div className="block md:hidden mt-2 text-center max-w-sm mx-auto p-4 bg-burgundy/5 rounded-2xl border border-burgundy/10 w-full">
+                <p className="font-serif text-base xs:text-lg italic text-burgundy font-medium leading-relaxed">
+                  “{book.hookCouplet}”
+                </p>
+              </div>
+
+              {/* BOOK DESCRIPTION/SYNOPSIS - Positioned beautifully below the fold! */}
+              <div className="font-sans text-[11px] xs:text-xs sm:text-sm text-near-black/80 leading-relaxed font-semibold mt-4 border-t border-burgundy/5 pt-4">
+                <p>
+                  How can a grouchy little bear learn the weight of his sharp-stinging opinions?
+                </p>
+                <p className="mt-2 text-near-black/70 font-medium">
+                  <em>Judgy Wudgy</em> is a beautiful, watercolor-illustrated story that teaches young readers (ages 3 to 6) the foundations of empathy, emotional awareness, and peer belonging, showing how easy it is to distance others—and how healing it is to choose kindness.
+                </p>
+              </div>
+
+            </div>
+
           </div>
         </div>
-      </div>
-    </AnimatedSection>
+      </AnimatedSection>
 
       {/* SECTION 2: TESTIMONIALS - Embedded inside the looping background container so it shares the video */}
       <TestimonialsSection variant="legacy" />
@@ -233,6 +338,144 @@ export default function BookPage() {
 
       {/* SECTION 4: EMAIL CAPTURE */}
       <EmailCapture />
+
+      {/* SECURE ONSITE CHECKOUT MODAL (HIGH-CONVERSION INTEGRATION) */}
+      {isCheckoutOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Animated Glass Backdrop */}
+          <div 
+            className="absolute inset-0 bg-[#0F0A05]/80 backdrop-blur-[4px] transition-opacity duration-300 animate-fadeIn"
+            onClick={() => setIsCheckoutOpen(false)}
+          />
+          
+          {/* Modal Container */}
+          <div className="relative bg-[#FFFBF4] border border-burgundy/15 w-full max-w-lg rounded-[28px] shadow-3xl overflow-hidden z-10 animate-scaleUp max-h-[90vh] flex flex-col">
+            {/* Header with Secure Badging */}
+            <div className="p-4 sm:p-5 border-b border-burgundy/10 bg-burgundy text-white flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-white/10 rounded-xl">
+                  <ShieldCheck className="h-5 w-5 text-gold shrink-0" />
+                </div>
+                <div className="text-left">
+                  <h3 className="font-sans font-black text-xs uppercase tracking-widest text-white leading-none mb-1">
+                    Secure On-Site Checkout
+                  </h3>
+                  <p className="text-[10px] text-gold font-extrabold uppercase tracking-widest leading-none">
+                    SSL Encrypted • Powered by Square
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsCheckoutOpen(false)}
+                className="text-white/80 hover:text-white hover:bg-white/15 p-2 rounded-full transition-all duration-200"
+                aria-label="Close Checkout"
+              >
+                <X className="h-4.5 w-4.5" />
+              </button>
+            </div>
+
+            {/* Seamless Embed Frame Container with animated loader */}
+            <div className="flex-1 bg-white overflow-hidden relative min-h-[460px] flex flex-col">
+              {isIframeLoading && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white z-10 gap-3">
+                  <div className="w-8 h-8 rounded-full border-[3px] border-burgundy/10 border-t-burgundy animate-spin" />
+                  <span className="text-[10px] font-sans font-black uppercase tracking-widest text-near-black/40">
+                    Connecting to Square...
+                  </span>
+                </div>
+              )}
+              <iframe
+                src={buyLinks.squareUrl}
+                className="w-full h-full flex-1 border-0"
+                title="Square Secure checkout"
+                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                onLoad={() => setIsIframeLoading(false)}
+              />
+            </div>
+
+            {/* Premium Trust Footnote & Direct Backup */}
+            <div className="p-4 sm:p-5 border-t border-burgundy/10 bg-[#FFFBF4] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                <span className="text-[10px] font-sans font-black text-near-black/55 uppercase tracking-widest">
+                  PCI-DSS Compliant Gateway
+                </span>
+              </div>
+              
+              <a
+                href={buyLinks.squareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track('buy_click', { location: 'checkout_modal_direct_link_fallback', store: 'Square' })}
+                className="text-[10px] font-sans font-extrabold text-burgundy hover:text-rose-pink uppercase tracking-widest underline flex items-center gap-1 transition-colors"
+              >
+                Having trouble? Open Direct Link <ExternalLink className="h-3 w-3 shrink-0" />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* FLOATING STICKY ACTION BAR FOR CONVERSION */}
+      <motion.div 
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: showStickyBar ? 0 : 100, opacity: showStickyBar ? 1 : 0 }}
+        transition={{ type: "spring", stiffness: 260, damping: 25 }}
+        className="fixed bottom-0 inset-x-0 z-45 bg-[#FFFBF4]/95 backdrop-blur-md border-t border-burgundy/15 py-3 px-4 sm:px-6 shadow-[0_-4px_20px_rgba(122,23,38,0.08)] flex items-center justify-between"
+      >
+        <div className="max-w-[1100px] mx-auto w-full flex items-center justify-between gap-4">
+          
+          {/* Left Side: Elegant literary CTA (Hidden on small mobile screens to prevent button collision) */}
+          <div className="hidden sm:flex flex-col text-left shrink-0">
+            <div className="flex items-center gap-1.5 leading-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse shrink-0" />
+              <span className="block font-sans text-[9px] uppercase tracking-widest font-black text-gold/95 leading-none">
+                Don't miss the action!
+              </span>
+            </div>
+            <h4 className="font-playfair text-sm font-black text-burgundy mt-1.5 leading-none tracking-tight">
+              Judgy Wudgy <span className="font-sans text-[10px] text-near-black/50 ml-1.5 font-semibold">— Preorder Special</span>
+            </h4>
+          </div>
+
+          {/* Right: Highly Optimized Compact Actions (Spans full width on mobile, aligns right on desktop) */}
+          <div className="flex-1 sm:flex-initial flex items-center justify-between sm:justify-end gap-2.5 w-full">
+            {/* Option 1: Amazon */}
+            {buyLinks.amazonLive ? (
+              <a
+                href={buyLinks.amazonUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track('buy_click', { location: 'sticky_action_bar', store: 'Amazon' })}
+                className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-white hover:bg-[#FFFBF4] text-burgundy border border-burgundy/25 font-extrabold text-[10px] sm:text-xs uppercase tracking-wider rounded-xl px-3.5 py-2.5 transition-all duration-200 active:scale-98 shadow-sm shrink-0 text-center"
+              >
+                <ShoppingBag className="h-3.5 w-3.5 shrink-0 text-burgundy/70" />
+                <span><span className="hidden xs:inline">Preorder on </span>Amazon</span>
+              </a>
+            ) : (
+              <div className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-[#E6EBE1]/40 border border-near-black/10 text-near-black/35 font-bold text-[9px] uppercase tracking-wider rounded-xl px-3 py-2.5 select-none shrink-0 text-center">
+                <AlertCircle className="h-3.5 w-3.5 text-near-black/25 shrink-0" />
+                <span>Amazon July</span>
+              </div>
+            )}
+
+            {/* Option 2: Square Direct */}
+            <button
+              type="button"
+              onClick={() => {
+                track('buy_click', { location: 'sticky_action_bar', store: 'Square' });
+                setIsCheckoutOpen(true);
+              }}
+              className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-burgundy hover:bg-[#7d2030] text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-wider rounded-xl px-3.5 py-2.5 transition-all duration-200 active:scale-98 shadow-sm shrink-0 text-center"
+            >
+              <CreditCard className="h-3.5 w-3.5 shrink-0 text-gold" />
+              <span>Buy Direct</span>
+            </button>
+          </div>
+
+        </div>
+      </motion.div>
     </div>
   );
 }

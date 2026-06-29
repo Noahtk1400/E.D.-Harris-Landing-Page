@@ -8,7 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Sparkles, ArrowRight, Award } from "lucide-react";
 import { useScroll, useTransform, motion } from "motion/react";
 import { track } from "@vercel/analytics";
-import { hero, book, author } from "../content";
+import { hero, book, author, buyLinks } from "../content";
 import AnimatedSection from "../components/AnimatedSection";
 import TestimonialsSection from "../components/TestimonialsSection";
 import EmailCapture from "../components/EmailCapture";
@@ -111,11 +111,11 @@ export default function Home() {
           {/* Action buttons side-by-side centered - positioned right above the words at the bottom */}
           <div className="absolute bottom-24 xs:bottom-28 sm:bottom-32 md:bottom-34 left-0 right-0 w-full flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 max-w-4xl mx-auto scale-95 sm:scale-100 z-30 pointer-events-auto">
             <a
-              href="https://store.bookbaby.com/book/judgy-wudgy-was-a-bear1"
+              href={buyLinks.amazonUrl}
               target="_blank"
               rel="noopener noreferrer"
               id="hero-order-cta"
-              onClick={() => track('buy_click', { location: 'home_hero', store: 'BookBaby' })}
+              onClick={() => track('buy_click', { location: 'home_hero', store: 'Amazon' })}
               className="inline-flex items-center justify-center bg-white hover:bg-white/95 text-near-black font-sans text-xs uppercase tracking-wider font-extrabold rounded-full px-6 py-3.5 sm:px-8 sm:py-4 transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 text-center w-full sm:w-auto"
             >
               Preorder Judgy Wudgy
