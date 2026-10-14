@@ -118,7 +118,7 @@ export default function Home() {
               onClick={() => track('buy_click', { location: 'home_hero', store: 'Amazon' })}
               className="inline-flex items-center justify-center bg-white hover:bg-white/95 text-near-black font-sans text-xs uppercase tracking-wider font-extrabold rounded-full px-6 py-3.5 sm:px-8 sm:py-4 transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 text-center w-full sm:w-auto"
             >
-              Preorder Judgy Wudgy
+              Buy Judgy Wudgy
               <span className="ml-2 text-sm leading-none">↗</span>
             </a>
             

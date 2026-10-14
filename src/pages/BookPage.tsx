@@ -150,7 +150,7 @@ export default function BookPage() {
               <div className="w-full flex flex-col gap-3 font-sans mt-2 items-center">
                 <div className="flex flex-row items-center justify-between border-b border-burgundy/10 pb-3 w-full gap-4 max-w-md">
                   <span className="text-[9px] xs:text-[10px] sm:text-[11px] uppercase tracking-wider xs:tracking-widest font-black text-near-black/55 whitespace-nowrap">
-                    Select Preorder Option
+                    Choose Where to Buy
                   </span>
                   <span className="flex items-center gap-1 sm:gap-1.5 text-[8.5px] xs:text-[9px] sm:text-[10px] text-emerald-600 font-bold uppercase tracking-widest bg-emerald-50 px-2.5 py-0.5 xs:px-3 xs:py-1 rounded-full border border-emerald-100 shadow-xs whitespace-nowrap shrink-0">
                     <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
@@ -170,7 +170,7 @@ export default function BookPage() {
                   >
                     <span className="flex items-center gap-1.5 justify-center">
                       <ShoppingBag className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-burgundy/70" />
-                      Preorder on Amazon
+                      Buy on Amazon
                     </span>
                     <span className="text-[9px] sm:text-[10px] tracking-wider opacity-90 font-black uppercase flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-burgundy/80">
                       Go to Amazon <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-burgundy/70" />
@@ -255,7 +255,7 @@ export default function BookPage() {
                 {showOtherRetailers && (
                   <div className="p-4 bg-[#FFFBF4]/40 border-t border-burgundy/10 flex flex-col gap-2.5 animate-fadeIn">
                     <p className="text-[11px] text-near-black/60 font-semibold leading-relaxed mb-1">
-                      Our custom-bound collector editions are also available to preorder directly through our publisher, BookBaby, supporting independent printing.
+                      Our custom-bound collector editions are also available directly through our publisher, BookBaby, supporting independent printing.
                     </p>
                     
                     {/* BookBaby Hardcover Link */}
@@ -477,7 +477,7 @@ export default function BookPage() {
                 className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-white hover:bg-[#FFFBF4] text-burgundy border border-burgundy/25 font-extrabold text-[10px] sm:text-xs uppercase tracking-wider rounded-xl px-3.5 py-2.5 transition-all duration-200 active:scale-98 shadow-sm shrink-0 text-center"
               >
                 <ShoppingBag className="h-3.5 w-3.5 shrink-0 text-burgundy/70" />
-                <span><span className="hidden xs:inline">Preorder on </span>Amazon</span>
+                <span><span className="hidden xs:inline">Buy on </span>Amazon</span>
               </a>
             ) : (
               <div className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-[#E6EBE1]/40 border border-near-black/10 text-near-black/35 font-bold text-[9px] uppercase tracking-wider rounded-xl px-3 py-2.5 select-none shrink-0 text-center">

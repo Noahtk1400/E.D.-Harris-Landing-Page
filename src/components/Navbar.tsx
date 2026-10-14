@@ -197,7 +197,7 @@ export default function Navbar() {
                 id="nav-preorder-cta"
                 className="inline-flex items-center justify-center bg-rose-pink hover:bg-burgundy text-white font-sans text-xs uppercase tracking-wider font-bold rounded-full px-5 py-2.5 transition-all duration-300 shadow-sm hover:shadow-md focus-visible:ring-2 focus-visible:ring-burgundy"
               >
-                Preorder
+                Buy the Book
               </Link>
             </div>
 
@@ -293,7 +293,7 @@ export default function Navbar() {
                   to="/books/judgy-wudgy"
                   className="mt-2 w-full text-center bg-rose-pink hover:bg-burgundy text-white font-sans text-[11px] uppercase tracking-widest font-extrabold rounded-full py-2.5 transition-all duration-300 block active:scale-[0.98]"
                 >
-                  Preorder Book
+                  Buy the Book
                 </Link>
               </motion.div>
             )}
